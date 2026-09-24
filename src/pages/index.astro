@@ -1,0 +1,303 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import WorkCard from "../components/WorkCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import Reveal from "../components/Reveal.astro";
+import { images } from "../data/images";
+import { siteConfig } from "../config/site";
+import { getCollection } from "astro:content";
+
+// Fetch collections
+const allWork = await getCollection("work");
+const allBlog = await getCollection("blog");
+
+// Sort blog by date descending and get latest 3
+const latestBlog = allBlog
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={`${siteConfig.name} — Marketing that makes brands impossible to ignore.`}
+  description={siteConfig.description}
+>
+  <!-- 1. HERO SECTION -->
+  <section class="section-pad-lg" style="position: relative; overflow: hidden; padding-bottom: clamp(3rem, 6vw, 6rem);">
+    <div class="container">
+      <div class="grid-2" style="align-items: center; gap: clamp(2.5rem, 5vw, 5rem);">
+        <!-- Hero Text -->
+        <div>
+          <div style="margin-bottom: 1.5rem;">
+            <span class="london-badge">
+              <span class="london-badge-dot"></span>
+              Fitzrovia, London &bull; Digital &amp; Content Agency
+            </span>
+          </div>
+
+          <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 1.5rem; text-wrap: balance;">
+            Marketing that makes brands impossible to ignore.
+          </h1>
+
+          <p class="text-lead" style="margin-bottom: 2.5rem; max-width: 48ch;">
+            North &amp; Finch is a London-based digital marketing agency helping ambitious brands grow through strategy, content, SEO and creative digital campaigns.
+          </p>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <Button href="/work" variant="primary" arrow>
+              Explore our work
+            </Button>
+            <Button href="/contact" variant="outline">
+              Start a conversation
+            </Button>
+          </div>
+        </div>
+
+        <!-- Hero Visual (London architecture / agency editorial) -->
+        <Reveal delay={150}>
+          <div style="position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-card); aspect-ratio: 4 / 3;">
+            <img
+              src={images.hero}
+              alt="North & Finch London agency view and modern architectural landmark"
+              width="800"
+              height="600"
+              fetchpriority="high"
+              style="width: 100%; height: 100%; object-fit: cover;"
+            />
+            <div style="position: absolute; bottom: 1rem; left: 1rem; background-color: rgba(17, 17, 17, 0.85); backdrop-filter: blur(8px); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: var(--text-xs); color: #f5f3ee; font-family: var(--font-serif); font-style: italic;">
+              London, W1T
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TRUSTED / INTRODUCTION STRIP -->
+  <section class="border-top-subtle border-bottom-subtle" style="background-color: var(--color-surface); padding: 2.25rem 0;">
+    <div class="container">
+      <div style="display: flex; flex-direction: column; md:flex-row; justify-content: space-between; align-items: flex-start; gap: 1.5rem;">
+        <div>
+          <span class="eyebrow eyebrow-accent" style="margin-bottom: 0.25rem;">Core Disciplines</span>
+          <p style="font-size: var(--text-xl); font-weight: 500; letter-spacing: -0.02em; color: var(--color-black);">
+            Strategy &bull; Content &bull; SEO &bull; Digital
+          </p>
+        </div>
+        <p style="font-size: var(--text-base); color: var(--color-muted); max-width: 52ch; line-height: 1.6;">
+          We combine sharp strategy with useful content and thoughtful digital experiences to build enduring organic advantage.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. WHAT WE DO (5 SERVICES) -->
+  <section class="section-pad">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Capabilities"
+        title="Disciplines built to compound commercial momentum."
+        description="We reject one-size-fits-all playbooks. Every engagement is shaped around specific commercial inflection points."
+      />
+
+      <div class="grid-services">
+        <ServiceCard
+          number="01"
+          title="Strategy"
+          description="Category positioning, audience research, narrative framing, and go-to-market roadmaps that clarify commercial differentiation."
+          href="/services#strategy"
+        />
+        <ServiceCard
+          number="02"
+          title="Content Marketing"
+          description="High-signal editorial publications, research monographs, and thought leadership that build genuine intellectual authority."
+          href="/services#content"
+        />
+        <ServiceCard
+          number="03"
+          title="SEO"
+          description="Technical web architecture, structured schema, search intent mapping, and authoritative topic clusters designed for organic longevity."
+          href="/services#seo"
+        />
+        <ServiceCard
+          number="04"
+          title="Digital Campaigns"
+          description="Integrated cross-channel creative narratives, targeted product launches, and multi-touch digital experiences that convert."
+          href="/services#campaigns"
+        />
+        <ServiceCard
+          number="05"
+          title="Performance Marketing"
+          description="Conversion-rate optimization, high-intent paid distribution, and funnel engineering that maximize customer lifetime value."
+          href="/services#performance"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FEATURED WORK (3 PROJECTS) -->
+  <section class="section-pad" style="background-color: var(--color-surface-subtle);">
+    <div class="container">
+      <div class="flex-between" style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);">
+        <div>
+          <span class="eyebrow eyebrow-accent">Selected Case Studies</span>
+          <h2 class="section-title">Measurable impact in practice.</h2>
+        </div>
+        <Button href="/work" variant="outline" arrow>
+          View all projects
+        </Button>
+      </div>
+
+      <div class="grid-3">
+        {
+          allWork.map((project) => (
+            <WorkCard
+              slug={project.id}
+              client={project.data.client}
+              industry={project.data.industry}
+              services={project.data.services}
+              description={project.data.description}
+              image={project.data.previewImage}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ABOUT / APPROACH SECTION WITH STATS -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="grid-2" style="align-items: center; gap: clamp(3rem, 6vw, 6rem);">
+        <div>
+          <span class="eyebrow eyebrow-accent">Our Philosophy</span>
+          <h2 class="section-title" style="margin-bottom: 1.5rem;">
+            Good marketing starts with a better question.
+          </h2>
+          <p class="text-lead" style="margin-bottom: 1.5rem;">
+            Most agencies rush to produce campaigns before understanding why customers hesitate. We slow down just enough to interrogate the real friction points.
+          </p>
+          <p style="margin-bottom: 2rem;">
+            By pairing rigorous strategic inquiry with London's finest editorial craft, North &amp; Finch builds marketing assets that continue generating inbound commercial opportunities months after deployment.
+          </p>
+
+          <Button href="/about" variant="primary" arrow>
+            Learn about our approach
+          </Button>
+        </div>
+
+        <!-- Fictional Demo Statistics Strip -->
+        <div class="surface-card" style="padding: clamp(2rem, 4vw, 3rem);">
+          <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
+            <span style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted);">
+              Indicative Demo Metrics
+            </span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <div>
+              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+                12+
+              </div>
+              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+                International markets reached across client campaigns
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+                38%
+              </div>
+              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+                Average sustained organic traffic growth within 90 days
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+                4.8x
+              </div>
+              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+                Average campaign return on ad spend across digital initiatives
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 0.75rem; color: var(--color-muted-light); margin-top: 1.5rem;">
+            *Figures are illustrative demo performance benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. LATEST INSIGHTS -->
+  <section class="section-pad border-top-subtle" style="background-color: var(--color-surface);">
+    <div class="container">
+      <div class="flex-between" style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);">
+        <div>
+          <span class="eyebrow eyebrow-accent">Editorial Insights</span>
+          <h2 class="section-title">Field notes &amp; perspectives.</h2>
+        </div>
+        <Button href="/blog" variant="outline" arrow>
+          View all insights
+        </Button>
+      </div>
+
+      <div class="grid-3">
+        {
+          latestBlog.map((post) => (
+            <BlogCard
+              slug={post.id}
+              title={post.data.title}
+              category={post.data.category}
+              publishDate={post.data.publishDate}
+              readingTime={post.data.readingTime}
+              image={post.data.image}
+              excerpt={post.data.description}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. NEWSLETTER CTA -->
+  <section class="section-pad" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container text-center">
+      <div style="max-width: 620px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">The London Dispatch</span>
+        <h2 style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 0.75rem;">
+          Ideas worth keeping.
+        </h2>
+        <p style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem;">
+          Get practical marketing, SEO and content insights delivered to your inbox once a fortnight.
+        </p>
+
+        <div style="display: flex; justify-content: center;">
+          <NewsletterForm id="home-newsletter" buttonText="Subscribe" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FINAL CTA -->
+  <section class="section-pad-lg text-center">
+    <div class="container">
+      <div style="max-width: 680px; margin: 0 auto;">
+        <span class="eyebrow">Ready for clarity?</span>
+        <h2 style="font-size: var(--text-4xl); font-weight: 500; letter-spacing: -0.03em; margin-bottom: 1.25rem;">
+          Have a brand worth growing?
+        </h2>
+        <p class="text-lead" style="margin-bottom: 2.5rem;">
+          Whether you need a full strategic overhaul or focused execution across SEO and content, we'd love to hear what you are building.
+        </p>
+        <Button href="/contact" variant="primary" size="lg" arrow>
+          Start a conversation
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

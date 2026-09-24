@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import { siteConfig } from "../config/site";
+---
+
+<BaseLayout
+  title={`Page Not Found (404) | ${siteConfig.name}`}
+  description="The requested page could not be located on North & Finch."
+>
+  <section class="section-pad-lg text-center">
+    <div class="container">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">Error 404</span>
+        <h1 style="font-size: var(--text-5xl); font-weight: 500; letter-spacing: -0.03em; margin-bottom: 1.5rem;">
+          Lost in the city.
+        </h1>
+        <p class="text-lead" style="margin-bottom: 2.5rem;">
+          The page or perspective you are seeking may have been renamed, relocated, or consolidated into an updated strategy guide.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <Button href="/" variant="primary" arrow>
+            Return to homepage
+          </Button>
+          <Button href="/work" variant="outline">
+            Explore our work
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

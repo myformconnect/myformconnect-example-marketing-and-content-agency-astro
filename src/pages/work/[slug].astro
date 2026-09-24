@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from "astro:content";
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+import WorkCard from "../../components/WorkCard.astro";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("work");
+  return caseStudies.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Related case studies (the other two projects)
+const allWork = await getCollection("work");
+const relatedWork = allWork.filter((item) => item.id !== entry.id).slice(0, 2);
+---
+
+<CaseStudyLayout
+  title={entry.data.title}
+  client={entry.data.client}
+  industry={entry.data.industry}
+  services={entry.data.services}
+  description={entry.data.description}
+  heroImage={entry.data.heroImage}
+  metrics={entry.data.metrics}
+  isConcept={entry.data.isConcept}
+>
+  <Content />
+
+  <!-- Related Work Section -->
+  <div style="margin-top: 5rem; padding-top: 3.5rem; border-top: 1px solid var(--color-border);">
+    <span class="eyebrow eyebrow-accent">Explore More Work</span>
+    <h3 style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 2rem;">
+      Other selected case studies
+    </h3>
+    <div class="grid-2">
+      {
+        relatedWork.map((project) => (
+          <WorkCard
+            slug={project.id}
+            client={project.data.client}
+            industry={project.data.industry}
+            services={project.data.services}
+            description={project.data.description}
+            image={project.data.previewImage}
+          />
+        ))
+      }
+    </div>
+  </div>
+</CaseStudyLayout>

@@ -1,0 +1,118 @@
+---
+import { siteConfig } from "../config/site";
+import Button from "./Button.astro";
+
+const currentPath = Astro.url.pathname;
+const normalize = (path: string) => path.replace(/\/$/, "") || "/";
+const activeNormalized = normalize(currentPath);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <!-- Brand Monogram & Wordmark -->
+    <a href="/" class="logo" aria-label="North & Finch Homepage">
+      <span class="logo-symbol">N</span>
+      <span>North &amp; Finch</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      {
+        siteConfig.navLinks.map((item) => {
+          const isActive =
+            item.href === "/"
+              ? activeNormalized === "/"
+              : activeNormalized.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`nav-link ${isActive ? "is-active" : ""}`}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-cta-group">
+      <div style="display: none; @media (min-width: 860px) { display: block; }">
+        <Button href="/contact" variant="primary" size="sm" arrow>
+          Contact
+        </Button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        type="button"
+        class="mobile-menu-btn"
+        aria-label="Open mobile navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-navigation-drawer"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div
+    id="mobile-navigation-drawer"
+    class="mobile-nav-drawer"
+    aria-hidden="true"
+    role="dialog"
+    aria-label="Mobile Navigation"
+  >
+    <div class="mobile-drawer-header">
+      <a href="/" class="logo">
+        <span class="logo-symbol">N</span>
+        <span>North &amp; Finch</span>
+      </a>
+      <button
+        type="button"
+        class="mobile-drawer-close"
+        aria-label="Close mobile navigation menu"
+        style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+      {
+        siteConfig.navLinks.map((item) => (
+          <a href={item.href} class="mobile-nav-link">
+            <span>{item.label}</span>
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        ))
+      }
+      <a href="/contact" class="mobile-nav-link" style="color: var(--color-accent);">
+        <span>Contact</span>
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </nav>
+
+    <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+      <p style="font-size: var(--text-xs); color: var(--color-muted); margin-bottom: 0.5rem;">
+        London Office
+      </p>
+      <p style="font-size: var(--text-sm); font-weight: 500;">
+        {siteConfig.location.city}, UK
+      </p>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkCard from "../components/WorkCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import { siteConfig } from "../config/site";
+import { getCollection } from "astro:content";
+
+const allWork = await getCollection("work");
+---
+
+<BaseLayout
+  title={`Selected Work & Case Studies | ${siteConfig.name}`}
+  description="Explore our portfolio of strategic digital marketing, technical SEO, and editorial campaigns for ambitious European brands."
+>
+  <!-- Work Hero -->
+  <section class="section-pad-lg">
+    <div class="container">
+      <div style="max-width: 860px;">
+        <span class="eyebrow eyebrow-accent">Selected Case Studies</span>
+        <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+          Measurable commercial impact, beautifully executed.
+        </h1>
+        <p class="text-lead" style="font-size: var(--text-xl); line-height: 1.5; color: #222222;">
+          A curated selection of our work across fintech, architectural lifestyle, and creative technology. Every case study demonstrates our commitment to rigorous strategy and uncompromised craft.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Grid -->
+  <section class="section-pad-sm border-top-subtle" style="background-color: var(--color-surface);">
+    <div class="container">
+      <div class="grid-3" style="gap: 2.5rem;">
+        {
+          allWork.map((project) => (
+            <WorkCard
+              slug={project.id}
+              client={project.data.client}
+              industry={project.data.industry}
+              services={project.data.services}
+              description={project.data.description}
+              image={project.data.previewImage}
+            />
+          ))
+        }
+      </div>
+
+      <div style="margin-top: 3.5rem; text-align: center;">
+        <p style="font-size: var(--text-xs); color: var(--color-muted-light);">
+          *Case studies represent fictional demonstration concepts engineered to illustrate North &amp; Finch's methodology and technical scope.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Bottom CTA -->
+  <section class="section-pad text-center" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <div style="max-width: 640px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">Collaborate</span>
+        <h2 style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 1rem;">
+          Have a similar challenge?
+        </h2>
+        <p style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem;">
+          Let's discuss how our multidisciplinary team can accelerate your organic acquisition and market authority.
+        </p>
+        <Button href="/contact" variant="primary" arrow>
+          Start a conversation
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

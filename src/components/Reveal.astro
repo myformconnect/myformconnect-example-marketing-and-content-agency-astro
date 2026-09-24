@@ -1,0 +1,16 @@
+---
+export interface Props {
+  delay?: number;
+  class?: string;
+  as?: string;
+}
+
+const { delay = 0, class: className = "", as: Component = "div" } = Astro.props;
+---
+
+<Component
+  class={`reveal-fade ${className}`}
+  style={delay > 0 ? `transition-delay: ${delay}ms;` : undefined}
+>
+  <slot />
+</Component>

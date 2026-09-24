@@ -1,0 +1,45 @@
+---
+import { formEndpoints } from "../config/forms";
+
+export interface Props {
+  id?: string;
+  buttonText?: string;
+  class?: string;
+}
+
+const {
+  id = "newsletter-form",
+  buttonText = "Subscribe",
+  class: className = ""
+} = Astro.props;
+---
+
+<div class={`newsletter-container ${className}`}>
+  <div class="form-feedback" role="status" aria-live="polite"></div>
+  <form
+    id={id}
+    action={formEndpoints.newsletter}
+    method="POST"
+    class="newsletter-form"
+    data-form-handler
+  >
+    <div style="flex: 1;">
+      <label for={`${id}-email`} class="sr-only">Work Email Address</label>
+      <input
+        type="email"
+        id={`${id}-email`}
+        name="email"
+        class="form-input"
+        placeholder="Enter your work email"
+        required
+        autocomplete="email"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">
+      {buttonText}
+      <svg class="btn-icon-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </form>
+</div>

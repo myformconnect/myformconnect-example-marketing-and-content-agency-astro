@@ -1,0 +1,81 @@
+---
+import { siteConfig } from "../config/site";
+import NewsletterForm from "./NewsletterForm.astro";
+import SocialLinks from "./SocialLinks.astro";
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <!-- Agency Information -->
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <span class="logo-symbol">N</span>
+          <span>North &amp; Finch</span>
+        </a>
+        <p class="footer-desc">
+          Helping ambitious brands grow through strategy, content, SEO, digital campaigns, and creative marketing.
+        </p>
+        <p class="footer-location">
+          {siteConfig.location.address}
+        </p>
+      </div>
+
+      <!-- Quick Navigation -->
+      <div>
+        <h4 class="footer-heading">Navigation</h4>
+        <ul class="footer-links">
+          {
+            siteConfig.navLinks.map((item) => (
+              <li>
+                <a href={item.href} class="footer-link">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="/contact" class="footer-link">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Agency Focus / Services -->
+      <div>
+        <h4 class="footer-heading">Expertise</h4>
+        <ul class="footer-links">
+          <li><a href="/services#strategy" class="footer-link">Strategy</a></li>
+          <li><a href="/services#content" class="footer-link">Content Marketing</a></li>
+          <li><a href="/services#seo" class="footer-link">Technical &amp; Content SEO</a></li>
+          <li><a href="/services#campaigns" class="footer-link">Digital Campaigns</a></li>
+          <li><a href="/services#performance" class="footer-link">Performance Marketing</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Dispatch -->
+      <div>
+        <h4 class="footer-heading">The London Dispatch</h4>
+        <p style="font-size: var(--text-xs); color: #9e9c96; margin-bottom: 1rem; line-height: 1.6;">
+          Fortnightly marketing strategy, organic search breakdowns, and editorial thinking.
+        </p>
+        <NewsletterForm id="footer-newsletter" buttonText="Join" />
+        <div style="margin-top: 1.5rem;">
+          <SocialLinks theme="dark" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Strip -->
+    <div class="footer-bottom">
+      <p>
+        &copy; {currentYear} {siteConfig.legalName}. All rights reserved.
+      </p>
+      <p class="footer-concept-note">
+        Concept project — created for demonstration. Not a commercial solicitation.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,199 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import { siteConfig } from "../config/site";
+
+const servicesList = [
+  {
+    id: "strategy",
+    number: "01",
+    title: "Strategy & Positioning",
+    lead: "Clarify what makes your brand distinct and build the operational roadmap to capture market share.",
+    description:
+      "Before investing in creative assets or ad spend, ambitious companies require ruthless clarity on positioning. We interrogate your unit economics, evaluate competitor messaging, and define an authentic point of view that commands pricing power.",
+    deliverables: [
+      "Category & Competitor Positioning Audit",
+      "Audience Segmentation & Persona Development",
+      "Brand Narrative & Messaging Architecture",
+      "Go-to-Market & Acquisition Roadmapping",
+      "Pricing & Value Proposition Framing"
+    ]
+  },
+  {
+    id: "content",
+    number: "02",
+    title: "Content Marketing & Editorial",
+    lead: "Produce intellectual authority assets that decision-makers read, bookmark, and share.",
+    description:
+      "We reject the commodity content treadmill. We write and design high-signal editorial publications, deep industry benchmarks, and perspective essays that establish your executive team as the definitive thinkers in your vertical.",
+    deliverables: [
+      "Editorial Strategy & Content Calendaring",
+      "Proprietary Benchmark Research & Whitepapers",
+      "Executive Ghostwriting & Thought Leadership",
+      "Case Study Production & Client Vignettes",
+      "Email Publication & Newsletter Architecture"
+    ]
+  },
+  {
+    id: "seo",
+    number: "03",
+    title: "SEO & Organic Architecture",
+    lead: "Engineer durable search visibility that compounds inbound commercial opportunities without marginal ad costs.",
+    description:
+      "Modern SEO is an engineering discipline and editorial science combined. We restructure technical architectures, resolve crawl bottlenecks, map high-intent keyword semantics, and implement advanced schema that guarantees search engine recognition.",
+    deliverables: [
+      "Comprehensive Technical SEO & Web Vitals Audit",
+      "Information Architecture & Topic Cluster Mapping",
+      "High-Commercial Intent Keyword Research",
+      "Schema.org JSON-LD Structured Data Implementation",
+      "Generative Engine Optimization (GEO) Alignment"
+    ]
+  },
+  {
+    id: "campaigns",
+    number: "04",
+    title: "Digital Campaigns & Creative",
+    lead: "Orchestrate multi-touch digital experiences that captivate prospective buyers across key inflection moments.",
+    description:
+      "When launching a new product, announcing a funding round, or entering a new geography, brands need cohesive momentum. We design cross-channel creative narratives that harmonize digital storytelling, paid social vignettes, and interactive web touchpoints.",
+    deliverables: [
+      "Product Launch Campaign Concept & Strategy",
+      "Digital Art Direction & Creative Asset Kits",
+      "Targeted Paid Social Creative (Meta, LinkedIn, Pinterest)",
+      "Interactive Digital Experiences & Lookbooks",
+      "Multi-Channel Campaign Flighting & Reporting"
+    ]
+  },
+  {
+    id: "performance",
+    number: "05",
+    title: "Performance Marketing & Funnels",
+    lead: "Transform cold web traffic into pipeline through friction-free information architecture and targeted distribution.",
+    description:
+      "Traffic without conversion is vanity. We audit customer journey friction, optimize web landing structures, deploy surgical paid search campaigns, and build multi-stage email onboarding sequences that accelerate pipeline velocity.",
+    deliverables: [
+      "Conversion Rate Optimization (CRO) UX Audits",
+      "High-Intent Paid Search (Google Search & Intent Campaigns)",
+      "Lead Capture & Friction-Free Inquiry Design",
+      "Bespoke ROI Calculators & Interactive Diagnostics",
+      "Lifecycle Nurturing & Email Automation Sequences"
+    ]
+  }
+];
+
+// Service Schema JSON-LD
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Digital Marketing, Content Strategy, and SEO",
+  "provider": {
+    "@type": "MarketingAgency",
+    "name": siteConfig.name,
+    "url": siteConfig.url
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "United Kingdom & International"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Marketing Services",
+    "itemListElement": servicesList.map((service, index) => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.lead
+      },
+      "position": index + 1
+    }))
+  }
+};
+---
+
+<BaseLayout
+  title={`Services — Strategy, Content, SEO & Digital Campaigns | ${siteConfig.name}`}
+  description="Explore North & Finch's core capabilities across brand strategy, content marketing, technical SEO, digital campaigns, and funnel optimization."
+  jsonLd={serviceSchema}
+>
+  <!-- Services Hero -->
+  <section class="section-pad-lg">
+    <div class="container">
+      <div style="max-width: 860px;">
+        <span class="eyebrow eyebrow-accent">What We Do</span>
+        <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+          Capabilities designed to build enduring market leadership.
+        </h1>
+        <p class="text-lead" style="font-size: var(--text-xl); line-height: 1.5; color: #222222;">
+          We combine the commercial rigor of high-level management consulting with the editorial craft of an independent publishing house and the technical discipline of organic search engineering.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Service Sections -->
+  <div class="border-top-subtle" style="background-color: var(--color-surface);">
+    {
+      servicesList.map((service, idx) => (
+        <section
+          id={service.id}
+          class={`section-pad ${idx !== 0 ? "border-top-subtle" : ""}`}
+        >
+          <div class="container">
+            <div class="grid-2" style="gap: clamp(2.5rem, 5vw, 5rem); align-items: flex-start;">
+              <!-- Left Column: Number, Title, Lead -->
+              <div>
+                <span style="font-family: var(--font-serif); font-size: 2.25rem; font-style: italic; color: var(--color-accent); display: block; margin-bottom: 0.75rem;">
+                  {service.number}
+                </span>
+                <h2 style="font-size: var(--text-3xl); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 1.25rem;">
+                  {service.title}
+                </h2>
+                <p class="text-lead" style="color: #333333; margin-bottom: 1.5rem;">
+                  {service.lead}
+                </p>
+                <p style="font-size: var(--text-base); color: var(--color-muted); line-height: 1.7;">
+                  {service.description}
+                </p>
+              </div>
+
+              <!-- Right Column: Deliverables Card -->
+              <div class="surface-card" style="background-color: var(--color-bg); padding: clamp(1.75rem, 3vw, 2.5rem);">
+                <h3 style="font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-black); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border);">
+                  Key Deliverables
+                </h3>
+                <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                  {service.deliverables.map((item) => (
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: var(--text-sm); color: #2b2b2b;">
+                      <span style="color: var(--color-accent); font-weight: bold; line-height: 1.2;">&rarr;</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+
+  <!-- Final CTA Strip -->
+  <section class="section-pad-lg text-center" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <div style="max-width: 680px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">Engagement Scopes</span>
+        <h2 style="font-size: var(--text-4xl); font-weight: 500; margin-bottom: 1.25rem;">
+          Discuss your project requirements.
+        </h2>
+        <p class="text-lead" style="margin-bottom: 2.5rem;">
+          We engage on focused strategic sprints as well as multi-quarter embedded agency retainers.
+        </p>
+        <Button href="/contact" variant="primary" size="lg" arrow>
+          Request an agency scoping call
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

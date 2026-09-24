@@ -1,0 +1,17 @@
+{
+  "name": "north-and-finch",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Production-quality demo website for North & Finch, a fictional London-based digital marketing and content agency built with Astro.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.4.2"
+  }
+}

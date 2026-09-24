@@ -1,0 +1,113 @@
+---
+import { formEndpoints } from "../config/forms";
+
+export interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id = "careers-talent-form", class: className = "" } = Astro.props;
+---
+
+<div class={`careers-form-wrapper ${className}`}>
+  <div class="form-feedback" role="status" aria-live="polite"></div>
+
+  <form
+    id={id}
+    action={formEndpoints.careers}
+    method="POST"
+    enctype="multipart/form-data"
+    data-form-handler
+  >
+    <div class="form-group">
+      <label for={`${id}-name`} class="form-label">
+        Full Name <span class="req" aria-hidden="true">*</span>
+      </label>
+      <input
+        type="text"
+        id={`${id}-name`}
+        name="name"
+        class="form-input"
+        placeholder="Oliver Vance"
+        required
+        autocomplete="name"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-email`} class="form-label">
+        Email Address <span class="req" aria-hidden="true">*</span>
+      </label>
+      <input
+        type="email"
+        id={`${id}-email`}
+        name="email"
+        class="form-input"
+        placeholder="oliver@example.com"
+        required
+        autocomplete="email"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-role`} class="form-label">
+        Role / Discipline <span class="req" aria-hidden="true">*</span>
+      </label>
+      <select id={`${id}-role`} name="role" class="form-select" required>
+        <option value="" disabled selected>Select your discipline</option>
+        <option value="Strategy">Brand & Growth Strategist</option>
+        <option value="Content & Editorial">Senior Content Editor / Copywriter</option>
+        <option value="SEO Specialist">Technical SEO Strategist</option>
+        <option value="Creative Director">Creative / Art Director</option>
+        <option value="Performance Specialist">Paid Media & Performance Lead</option>
+        <option value="Freelance Specialist">Freelance / Fractional Network</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-portfolio`} class="form-label">Portfolio URL or LinkedIn</label>
+      <input
+        type="url"
+        id={`${id}-portfolio`}
+        name="portfolio"
+        class="form-input"
+        placeholder="https://linkedin.com/in/username"
+        autocomplete="url"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-cv`} class="form-label">CV / Resume (PDF, Max 5MB)</label>
+      <input
+        type="file"
+        id={`${id}-cv`}
+        name="cv"
+        class="form-input"
+        accept=".pdf,.doc,.docx"
+        style="padding: 0.6rem;"
+      />
+      <small class="text-muted" style="font-size: 0.75rem;">Supported if enabled on your third-party form provider.</small>
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-message`} class="form-label">
+        Brief Intro & What Kind of Work Excites You <span class="req" aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id={`${id}-message`}
+        name="message"
+        class="form-textarea"
+        rows="3"
+        placeholder="Share a short note on your background, recent projects, and how you work..."
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+      Submit application
+      <svg class="btn-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </form>
+</div>

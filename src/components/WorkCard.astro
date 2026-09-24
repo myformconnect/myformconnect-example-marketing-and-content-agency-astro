@@ -1,0 +1,54 @@
+---
+export interface Props {
+  slug: string;
+  client: string;
+  industry: string;
+  services: string[];
+  description: string;
+  image: string;
+  class?: string;
+}
+
+const {
+  slug,
+  client,
+  industry,
+  services,
+  description,
+  image,
+  class: className = ""
+} = Astro.props;
+---
+
+<article class={`work-card ${className}`}>
+  <a href={`/work/${slug}`} class="work-card-media" aria-label={`View case study for ${client}`}>
+    <img
+      src={image}
+      alt={`${client} — ${industry} digital marketing case study`}
+      loading="lazy"
+      decoding="async"
+      width="600"
+      height="375"
+    />
+  </a>
+  <div class="work-card-content">
+    <div class="work-card-meta">
+      <span class="work-card-client font-medium">{client}</span>
+      <span>•</span>
+      <span class="work-card-industry">{industry}</span>
+    </div>
+    <h3 class="work-card-title">
+      <a href={`/work/${slug}`}>{client}</a>
+    </h3>
+    <p class="work-card-desc">{description}</p>
+    <div class="work-card-footer">
+      <span class="work-card-tags">{services.join(" · ")}</span>
+      <a href={`/work/${slug}`} class="btn-text">
+        View case study
+        <svg class="btn-icon-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>

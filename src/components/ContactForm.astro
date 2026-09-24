@@ -1,0 +1,133 @@
+---
+import { formEndpoints } from "../config/forms";
+
+export interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id = "main-contact-form", class: className = "" } = Astro.props;
+---
+
+<div class={`contact-form-wrapper ${className}`}>
+  <div class="form-feedback" role="status" aria-live="polite"></div>
+
+  <form
+    id={id}
+    action={formEndpoints.contact}
+    method="POST"
+    data-form-handler
+    novalidate
+  >
+    <div class="grid-2">
+      <div class="form-group">
+        <label for={`${id}-name`} class="form-label">
+          Full Name <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id={`${id}-name`}
+          name="name"
+          class="form-input"
+          placeholder="Jane Doe"
+          required
+          autocomplete="name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-email`} class="form-label">
+          Work Email <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id={`${id}-email`}
+          name="email"
+          class="form-input"
+          placeholder="jane@company.com"
+          required
+          autocomplete="email"
+        />
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label for={`${id}-company`} class="form-label">Company / Brand</label>
+        <input
+          type="text"
+          id={`${id}-company`}
+          name="company"
+          class="form-input"
+          placeholder="Company Ltd"
+          autocomplete="organization"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-website`} class="form-label">Website URL</label>
+        <input
+          type="url"
+          id={`${id}-website`}
+          name="website"
+          class="form-input"
+          placeholder="https://company.com"
+          autocomplete="url"
+        />
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label for={`${id}-service`} class="form-label">
+          Primary Service Needed <span class="req" aria-hidden="true">*</span>
+        </label>
+        <select id={`${id}-service`} name="service" class="form-select" required>
+          <option value="" disabled selected>Select a strategic focus</option>
+          <option value="Strategy">Strategic Brand & Growth Positioning</option>
+          <option value="Content Marketing">Content Marketing & Editorial</option>
+          <option value="SEO">Technical & Content SEO</option>
+          <option value="Digital Campaigns">Integrated Digital Campaigns</option>
+          <option value="Performance Marketing">Performance Marketing & Funnels</option>
+          <option value="Comprehensive Retainer">Comprehensive Agency Retainer</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-budget`} class="form-label">Estimated Quarterly Budget</label>
+        <select id={`${id}-budget`} name="budget" class="form-select">
+          <option value="" disabled selected>Select an investment tier</option>
+          <option value="£15k - £30k">£15,000 – £30,000</option>
+          <option value="£30k - £60k">£30,000 – £60,000</option>
+          <option value="£60k - £120k">£60,000 – £120,000</option>
+          <option value="£120k+">£120,000+</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for={`${id}-message`} class="form-label">
+        Project Details & Goals <span class="req" aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id={`${id}-message`}
+        name="message"
+        class="form-textarea"
+        rows="4"
+        placeholder="Tell us about your brand, current bottlenecks, and what you aim to achieve..."
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 1.1rem;">
+      Send enquiry
+      <svg class="btn-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <p class="form-note">
+      We respect your privacy. Submissions are processed in accordance with UK GDPR. We will never share your information with third parties.
+    </p>
+  </form>
+</div>

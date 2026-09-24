@@ -1,0 +1,16 @@
+{
+  "name": "North & Finch",
+  "short_name": "North & Finch",
+  "description": "London-based digital marketing and content agency.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3EE",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

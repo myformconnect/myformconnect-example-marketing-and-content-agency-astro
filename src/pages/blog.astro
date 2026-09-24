@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogCard from "../components/BlogCard.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import Button from "../components/Button.astro";
+import { siteConfig } from "../config/site";
+import { getCollection } from "astro:content";
+
+const allArticles = await getCollection("blog");
+
+// Sort articles chronologically (newest first)
+const sortedArticles = allArticles.sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+const featuredArticle = sortedArticles.find((a) => a.data.featured) || sortedArticles[0];
+const regularArticles = sortedArticles.filter((a) => a.id !== featuredArticle.id);
+
+const categories = ["All", "SEO", "Content", "Strategy", "Digital Marketing"];
+---
+
+<BaseLayout
+  title={`Insights & Perspectives — Editorial | ${siteConfig.name}`}
+  description="Strategic analysis, technical SEO teardowns, and content marketing frameworks from North & Finch's London team."
+>
+  <!-- Blog Hero -->
+  <section class="section-pad-lg">
+    <div class="container">
+      <div style="max-width: 860px;">
+        <span class="eyebrow eyebrow-accent">The London Dispatch</span>
+        <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+          Perspectives on strategy, search &amp; organic growth.
+        </h1>
+        <p class="text-lead" style="font-size: var(--text-xl); line-height: 1.5; color: #222222;">
+          Field-tested frameworks, architectural search guides, and contrarian perspectives written for leaders who care about compounding commercial advantage.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article Hero Banner -->
+  {
+    featuredArticle && (
+      <section class="border-top-subtle" style="background-color: var(--color-surface); padding: clamp(2.5rem, 5vw, 4.5rem) 0;">
+        <div class="container">
+          <div class="grid-2" style="align-items: center; gap: clamp(2rem, 4vw, 4rem); background-color: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; padding: clamp(1.5rem, 3vw, 3rem);">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <span class="eyebrow eyebrow-accent" style="margin-bottom: 0;">Featured Insight</span>
+                <span style="color: var(--color-border);">•</span>
+                <span style="font-size: var(--text-xs); color: var(--color-muted);">{featuredArticle.data.category}</span>
+                <span style="color: var(--color-border);">•</span>
+                <span style="font-size: var(--text-xs); color: var(--color-muted);">{featuredArticle.data.readingTime}</span>
+              </div>
+
+              <h2 style="font-size: var(--text-3xl); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem;">
+                <a href={`/blog/${featuredArticle.id}`}>
+                  {featuredArticle.data.title}
+                </a>
+              </h2>
+
+              <p style="font-size: var(--text-base); color: var(--color-muted); line-height: 1.6; margin-bottom: 1.75rem;">
+                {featuredArticle.data.description}
+              </p>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <span style="font-size: var(--text-xs); color: var(--color-muted);">
+                  By <strong style="color: var(--color-black);">{featuredArticle.data.author}</strong>
+                </span>
+                <Button href={`/blog/${featuredArticle.id}`} variant="primary" arrow>
+                  Read featured article
+                </Button>
+              </div>
+            </div>
+
+            <a href={`/blog/${featuredArticle.id}`} style="display: block; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border); aspect-ratio: 16 / 10;">
+              <img
+                src={featuredArticle.data.image}
+                alt={featuredArticle.data.title}
+                width="640"
+                height="400"
+                style="width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow);"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Articles Filter Strip & Grid -->
+  <section class="section-pad">
+    <div class="container">
+      <!-- Category tags -->
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+        <h2 style="font-size: var(--text-2xl); font-weight: 500;">
+          Latest Articles
+        </h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          {
+            categories.map((cat, i) => (
+              <span
+                style={`font-size: var(--text-xs); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); border: 1px solid var(--color-border); ${i === 0 ? "background: var(--color-black); color: var(--color-surface); border-color: var(--color-black);" : "background: var(--color-surface); color: #333;"}`}
+              >
+                {cat}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid-3" style="gap: 2.5rem;">
+        {
+          regularArticles.map((post) => (
+            <BlogCard
+              slug={post.id}
+              title={post.data.title}
+              category={post.data.category}
+              publishDate={post.data.publishDate}
+              readingTime={post.data.readingTime}
+              image={post.data.image}
+              excerpt={post.data.description}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup Block -->
+  <section class="section-pad" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
+    <div class="container text-center">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">Stay Ahead</span>
+        <h2 style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 0.75rem;">
+          Get our latest thinking in your inbox.
+        </h2>
+        <p style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem;">
+          Practical analysis on search algorithms, content strategy, and digital brand elevation. Delivered fortnightly.
+        </p>
+        <div style="display: flex; justify-content: center;">
+          <NewsletterForm id="blog-listing-newsletter" buttonText="Subscribe" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

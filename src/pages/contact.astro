@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import { siteConfig } from "../config/site";
+---
+
+<BaseLayout
+  title={`Contact North & Finch — Start a Conversation | ${siteConfig.name}`}
+  description="Discuss your marketing strategy, technical SEO, or content requirements with our London team. We respond within 24 business hours."
+>
+  <section class="section-pad-lg">
+    <div class="container">
+      <div class="grid-2" style="gap: clamp(3rem, 6vw, 6rem); align-items: flex-start;">
+        <!-- Left Column: Agency Information & Contact Details -->
+        <div>
+          <span class="eyebrow eyebrow-accent">Get In Touch</span>
+          <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+            Let's make something worth talking about.
+          </h1>
+
+          <p class="text-lead" style="margin-bottom: 3rem;">
+            Whether you are preparing for a new funding stage, launching an ambitious product line, or tired of burning capital on uninspired marketing, we'd like to hear from you.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 2rem; padding: 2rem 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); margin-bottom: 3rem;">
+            <div>
+              <span class="eyebrow" style="margin-bottom: 0.25rem;">London Studio</span>
+              <p style="font-size: var(--text-base); font-weight: 500; color: var(--color-black);">
+                {siteConfig.location.address}
+              </p>
+              <p style="font-size: var(--text-xs); color: var(--color-muted); margin-top: 0.2rem;">
+                {siteConfig.location.city}, {siteConfig.location.country}
+              </p>
+            </div>
+
+            <div>
+              <span class="eyebrow" style="margin-bottom: 0.25rem;">Direct Inquiries</span>
+              <p style="font-size: var(--text-base); font-weight: 500;">
+                <a href={`mailto:${siteConfig.email}`} style="color: var(--color-black); text-decoration: underline; text-underline-offset: 4px;">
+                  {siteConfig.email}
+                </a>
+              </p>
+              <p style="font-size: var(--text-xs); color: var(--color-muted); margin-top: 0.2rem;">
+                Phone: {siteConfig.phone}
+              </p>
+            </div>
+
+            <div>
+              <span class="eyebrow" style="margin-bottom: 0.5rem;">Follow Our Work</span>
+              <SocialLinks theme="light" />
+            </div>
+          </div>
+
+          <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;">
+            <p style="font-size: var(--text-xs); color: var(--color-muted); line-height: 1.6;">
+              <strong style="color: var(--color-black);">Demonstration Note:</strong> North &amp; Finch is a concept marketing agency project built to demonstrate high-performance Astro architecture, editorial web design, and clean third-party form integration.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Contact Form -->
+        <div class="surface-card" style="padding: clamp(2rem, 4vw, 3rem); box-shadow: var(--shadow-card);">
+          <div style="margin-bottom: 2rem;">
+            <h2 style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.5rem;">
+              Project Inquiry
+            </h2>
+            <p style="font-size: var(--text-sm); color: var(--color-muted);">
+              Fill out the details below and a partner will get back to you within 24 business hours.
+            </p>
+          </div>
+
+          <ContactForm id="contact-page-form" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

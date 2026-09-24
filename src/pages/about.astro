@@ -1,0 +1,248 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import CareersForm from "../components/CareersForm.astro";
+import { images } from "../data/images";
+import { siteConfig } from "../config/site";
+
+const approachSteps = [
+  {
+    step: "01",
+    title: "Discover",
+    description:
+      "We interrogate the commercial reality: customer objections, search volume patterns, competitor positioning, and the exact reasons why deals stall."
+  },
+  {
+    step: "02",
+    title: "Define",
+    description:
+      "We formulate a singular narrative strategy and tactical roadmap. We establish measurable benchmarks, topic models, and channel priorities."
+  },
+  {
+    step: "03",
+    title: "Create",
+    description:
+      "Our London editorial and design team produces high-signal content, optimized web experiences, and integrated creative assets that elevate your brand."
+  },
+  {
+    step: "04",
+    title: "Grow",
+    description:
+      "We distribute, analyze, and iterate. We build compounding organic search equity and systematically optimize conversions across your customer lifecycle."
+  }
+];
+
+const team = [
+  {
+    name: "Maya Bennett",
+    role: "Strategy Director",
+    bio: "Former management consultant turned brand strategist. Maya aligns marketing investments with enterprise unit economics.",
+    image: images.teamMaya
+  },
+  {
+    name: "Oliver Reed",
+    role: "Creative Director",
+    bio: "Over a decade directing campaigns across London and New York. Oliver specializes in editorial design systems and brand identity.",
+    image: images.teamOliver
+  },
+  {
+    name: "Amelia Clarke",
+    role: "Content Lead",
+    bio: "Journalist and B2B editorial architect. Amelia leads content production that turns complex technical topics into engaging publications.",
+    image: images.teamAmelia
+  }
+];
+---
+
+<BaseLayout
+  title={`About Us — Strategy & Storytelling | ${siteConfig.name}`}
+  description="Learn about North & Finch, a London marketing agency pairing sharp strategy, editorial craft, and organic growth discipline."
+>
+  <!-- About Hero -->
+  <section class="section-pad-lg">
+    <div class="container">
+      <div style="max-width: 860px;">
+        <span class="eyebrow eyebrow-accent">About North &amp; Finch</span>
+        <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+          Strategy, creativity and a little London stubbornness.
+        </h1>
+        <p class="text-lead" style="font-size: var(--text-xl); line-height: 1.5; color: #222222;">
+          North &amp; Finch was established in Fitzrovia with a singular conviction: ambitious brands deserve marketing that treats audiences as intelligent adults.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Story Section -->
+  <section class="section-pad-sm border-top-subtle" style="background-color: var(--color-surface);">
+    <div class="container">
+      <div class="grid-2" style="gap: clamp(2.5rem, 5vw, 5rem); align-items: flex-start;">
+        <div>
+          <span class="eyebrow">Our Story</span>
+          <h2 style="font-size: var(--text-3xl); font-weight: 500; line-height: 1.2; margin-bottom: 1.5rem;">
+            Moving beyond disposable clicks toward enduring authority.
+          </h2>
+          <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); aspect-ratio: 4 / 3; margin-top: 2rem;">
+            <img
+              src={images.agencyOffice}
+              alt="North & Finch agency studio in Fitzrovia, London"
+              loading="lazy"
+              width="640"
+              height="480"
+              style="width: 100%; height: 100%; object-fit: cover;"
+            />
+          </div>
+        </div>
+
+        <div class="prose-editorial" style="padding-top: 1rem;">
+          <p>
+            The modern digital landscape is saturated with noise. Companies spend fortunes renting fleeting attention on algorithmic ad feeds, only to find their brand equity disappears the moment the budget is paused.
+          </p>
+          <p>
+            We founded North &amp; Finch to offer a more durable alternative. We combine the rigorous inquiry of a strategic consultancy with the narrative flair of an independent publisher and the technical precision of an organic search engineering firm.
+          </p>
+          <p>
+            Based in central London, we work with a deliberately select portfolio of high-growth technology companies, modern luxury brands, and specialized service firms across the UK, Europe, and North America.
+          </p>
+          <blockquote>
+            "If your marketing could just as easily have been published by your competitor, it is not an asset — it is an overhead."
+          </blockquote>
+          <p>
+            We don't do generic checklists, cookie-cutter templates, or vanity metrics. Every word we write, every strategy we develop, and every campaign we launch is designed to establish unassailable category leadership.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach (01 - 04) -->
+  <section class="section-pad">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Our Process"
+        title="A disciplined sequence designed to eliminate guesswork."
+        description="We follow a four-stage engagement framework that moves seamlessly from forensic commercial analysis to compounding market impact."
+      />
+
+      <div class="grid-2" style="gap: 2rem;">
+        {
+          approachSteps.map((step) => (
+            <div class="surface-card" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 240px;">
+              <div>
+                <span style="font-family: var(--font-serif); font-size: 2rem; font-style: italic; color: var(--color-accent); display: block; margin-bottom: 0.75rem;">
+                  {step.step}
+                </span>
+                <h3 style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.75rem;">
+                  {step.title}
+                </h3>
+                <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="section-pad border-top-subtle" style="background-color: var(--color-surface);">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Leadership"
+        title="Craft and strategy led by seasoned practitioners."
+        description="No layers of account handlers. You work directly with experienced directors who execute the work."
+      />
+
+      <div class="grid-3">
+        {
+          team.map((member) => (
+            <div class="surface-card" style="padding: 1.5rem;">
+              <div style="aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.25rem; border: 1px solid var(--color-border);">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  loading="lazy"
+                  width="400"
+                  height="400"
+                  style="width: 100%; height: 100%; object-fit: cover;"
+                />
+              </div>
+              <h3 style="font-size: var(--text-xl); font-weight: 500; margin-bottom: 0.25rem;">
+                {member.name}
+              </h3>
+              <p style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); margin-bottom: 0.75rem;">
+                {member.role}
+              </p>
+              <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.5;">
+                {member.bio}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers / Talent Section -->
+  <section class="section-pad" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
+    <div class="container text-center">
+      <div style="max-width: 620px; margin: 0 auto;">
+        <span class="eyebrow eyebrow-accent">Join The Team</span>
+        <h2 style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 1rem;">
+          Want to work with us?
+        </h2>
+        <p style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem; line-height: 1.6;">
+          We are always interested in meeting exceptional writers, SEO engineers, art directors, and strategists. Whether you seek a permanent role or freelance collaboration, we'd like to hear from you.
+        </p>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-open-careers-modal
+        >
+          Join our talent network
+          <svg class="btn-icon-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers Modal Dialog -->
+  <div
+    id="careers-modal"
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="careers-modal-title"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <button
+        type="button"
+        class="modal-close-btn"
+        aria-label="Close dialog"
+      >
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div style="margin-bottom: 1.5rem;">
+        <span class="eyebrow eyebrow-accent">Talent Network</span>
+        <h2 id="careers-modal-title" style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.5rem;">
+          Work with North &amp; Finch
+        </h2>
+        <p style="font-size: var(--text-sm); color: var(--color-muted);">
+          Share your portfolio, background, and the types of creative or strategic challenges you thrive on.
+        </p>
+      </div>
+
+      <CareersForm id="modal-careers-form" />
+    </div>
+  </div>
+</BaseLayout>

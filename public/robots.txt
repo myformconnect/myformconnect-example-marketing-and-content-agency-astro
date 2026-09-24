@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://northandfinch.example/sitemap-index.xml

@@ -1,0 +1,157 @@
+---
+import { formEndpoints } from "../config/forms";
+---
+
+<div
+  id="exit-intent-modal"
+  class="modal-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exit-modal-title"
+  aria-describedby="exit-modal-desc"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <button
+      type="button"
+      class="modal-close-btn"
+      id="exit-modal-close"
+      aria-label="Close dialog"
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div style="margin-bottom: 1.5rem;">
+      <span class="eyebrow eyebrow-accent">Before you go...</span>
+      <h2 id="exit-modal-title" style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -0.02em;">
+        Ideas worth keeping.
+      </h2>
+      <p id="exit-modal-desc" style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+        Get practical marketing, SEO and content insights delivered to your inbox once every fortnight. No noise, just field-tested strategy.
+      </p>
+    </div>
+
+    <div class="form-feedback" role="status" aria-live="polite"></div>
+
+    <form
+      id="exit-intent-form"
+      action={formEndpoints.keepInformed}
+      method="POST"
+      data-form-handler
+    >
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="exit-intent-email" class="form-label">
+          Work Email <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id="exit-intent-email"
+          name="email"
+          class="form-input"
+          placeholder="name@company.com"
+          required
+          autocomplete="email"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem;">
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Keep me informed
+          <svg class="btn-icon-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button
+          type="button"
+          id="exit-modal-dismiss"
+          class="btn btn-outline"
+          style="width: 100%; justify-content: center; font-size: var(--text-xs); border-color: transparent;"
+        >
+          No thanks
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Self-contained exit intent logic complying with all rules
+  (() => {
+    const STORAGE_KEY = "nf_exit_intent_shown";
+    const modal = document.getElementById("exit-intent-modal");
+    if (!modal) return;
+
+    const closeBtn = document.getElementById("exit-modal-close");
+    const dismissBtn = document.getElementById("exit-modal-dismiss");
+    const emailInput = document.getElementById("exit-intent-email");
+    let lastActiveElement = null;
+    let pageLoadTime = Date.now();
+    let hasTriggered = false;
+
+    // Check session storage
+    if (sessionStorage.getItem(STORAGE_KEY)) {
+      return;
+    }
+
+    const showModal = () => {
+      if (hasTriggered || sessionStorage.getItem(STORAGE_KEY)) return;
+      hasTriggered = true;
+      sessionStorage.setItem(STORAGE_KEY, "true");
+
+      lastActiveElement = document.activeElement;
+      modal.classList.add("is-active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+
+      if (emailInput) {
+        setTimeout(() => emailInput.focus(), 50);
+      }
+    };
+
+    const closeModal = () => {
+      modal.classList.remove("is-active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastActiveElement && typeof lastActiveElement.focus === "function") {
+        lastActiveElement.focus();
+      }
+    };
+
+    // Close listeners
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (dismissBtn) dismissBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Keyboard ESC listener
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-active")) {
+        closeModal();
+      }
+    });
+
+    // Desktop: Exit intent trigger (mouse moves towards top of viewport after 8+ seconds)
+    const handleMouseLeave = (e) => {
+      const elapsedSeconds = (Date.now() - pageLoadTime) / 1000;
+      if (elapsedSeconds >= 8 && e.clientY <= 15) {
+        document.removeEventListener("mouseleave", handleMouseLeave);
+        showModal();
+      }
+    };
+
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    // Mobile fallback: Non-intrusive timer after 45s of active presence if screen < 768px
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        const elapsed = (Date.now() - pageLoadTime) / 1000;
+        if (elapsed >= 45 && !hasTriggered) {
+          showModal();
+        }
+      }, 45000);
+    }
+  })();
+</script>

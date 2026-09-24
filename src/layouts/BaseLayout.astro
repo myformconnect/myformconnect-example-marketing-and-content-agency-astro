@@ -1,0 +1,96 @@
+---
+import SEO from "../components/SEO.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ExitIntentPopup from "../components/ExitIntentPopup.astro";
+import { siteConfig } from "../config/site";
+
+import "../styles/global.css";
+import "../styles/components.css";
+import "../styles/utilities.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image,
+  type = "website",
+  jsonLd
+} = Astro.props;
+
+// Default Organization schema for the agency
+const defaultOrgSchema = {
+  "@context": "https://schema.org",
+  "@type": "MarketingAgency",
+  "name": siteConfig.name,
+  "legalName": siteConfig.legalName,
+  "url": siteConfig.url,
+  "logo": `${siteConfig.url}/favicon.svg`,
+  "description": siteConfig.description,
+  "email": siteConfig.email,
+  "telephone": siteConfig.phone,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteConfig.location.address,
+    "addressLocality": siteConfig.location.city,
+    "postalCode": siteConfig.location.postalCode,
+    "addressCountry": "GB"
+  },
+  "sameAs": [
+    siteConfig.social.linkedin,
+    siteConfig.social.instagram
+  ]
+};
+
+const combinedJsonLd = jsonLd
+  ? Array.isArray(jsonLd)
+    ? [defaultOrgSchema, ...jsonLd]
+    : [defaultOrgSchema, jsonLd]
+  : defaultOrgSchema;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      image={image}
+      type={type}
+      jsonLd={combinedJsonLd}
+    />
+  </head>
+  <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <Header />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <ExitIntentPopup />
+
+    <!-- Core Client Interactions -->
+    <script src="../scripts/site.js"></script>
+  </body>
+</html>
