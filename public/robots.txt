@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://westervane.example/sitemap-index.xml
+Sitemap: https://westervane.vercel.app/sitemap-index.xml

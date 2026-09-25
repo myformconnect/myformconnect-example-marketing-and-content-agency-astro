@@ -10,18 +10,23 @@ export interface Props {
   jsonLd?: Record<string, any> | Array<Record<string, any>>;
 }
 
+const defaultSocialImage = "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&h=630&q=85";
+
 const {
   title = `${siteConfig.name} — London Digital Marketing & Content Agency`,
   description = siteConfig.description,
   canonical = Astro.url.href,
-  image = "/favicon.svg",
+  image = defaultSocialImage,
   type = "website",
   jsonLd
 } = Astro.props;
 
+// Twitter and Facebook reject SVG for social share cards; ensure raster image fallback
+const resolvedImage = !image || image.endsWith(".svg") ? defaultSocialImage : image;
+
 // Make sure the canonical and social preview image URLs are fully qualified
 const canonicalUrl = new URL(canonical, siteConfig.url).href;
-const imageUrl = image.startsWith("http") ? image : new URL(image, siteConfig.url).href;
+const imageUrl = resolvedImage.startsWith("http") ? resolvedImage : new URL(resolvedImage, siteConfig.url).href;
 const fullTitle = title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`;
 ---
 
@@ -31,21 +36,26 @@ const fullTitle = title.includes(siteConfig.name) ? title : `${title} | ${siteCo
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 
-<!-- Social previews for LinkedIn, Facebook, and chat apps -->
+<!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:secure_url" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content={siteConfig.name} />
 <meta property="og:locale" content="en_GB" />
 
 <!-- Twitter / X preview card -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalUrl} />
-<meta property="twitter:title" content={fullTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={fullTitle} />
 
 <!-- Rich snippets and structured metadata for Google -->
 {

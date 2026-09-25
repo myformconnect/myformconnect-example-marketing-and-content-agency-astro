@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 // Full config documentation: https://astro.build/config
 export default defineConfig({
   // Update this with your live website address when deploying
-  site: "https://westervane.example",
+  site: "https://westervane.vercel.app",
   image: {
     // Allows Astro to download, resize, and convert images from Unsplash to WebP
     domains: ["images.unsplash.com"]
