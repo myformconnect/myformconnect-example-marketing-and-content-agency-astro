@@ -13,7 +13,7 @@ const allWork = await getCollection("work");
   title={`Selected Work & Case Studies | ${siteConfig.name}`}
   description="Explore our portfolio of strategic digital marketing, technical SEO, and editorial campaigns for ambitious European brands."
 >
-  <!-- Work Hero -->
+  <!-- Page headline and introduction -->
   <section class="section-pad-lg">
     <div class="container">
       <div style="max-width: 860px;">
@@ -28,7 +28,7 @@ const allWork = await getCollection("work");
     </div>
   </section>
 
-  <!-- Work Grid -->
+  <!-- Grid displaying all case studies -->
   <section class="section-pad-sm border-top-subtle" style="background-color: var(--color-surface);">
     <div class="container">
       <div class="grid-3" style="gap: 2.5rem;">
@@ -45,16 +45,10 @@ const allWork = await getCollection("work");
           ))
         }
       </div>
-
-      <div style="margin-top: 3.5rem; text-align: center;">
-        <p style="font-size: var(--text-xs); color: var(--color-muted-light);">
-          *Case studies represent fictional demonstration concepts engineered to illustrate North &amp; Finch's methodology and technical scope.
-        </p>
-      </div>
     </div>
   </section>
 
-  <!-- Work Bottom CTA -->
+  <!-- Bottom call to action for new projects -->
   <section class="section-pad text-center" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
     <div class="container">
       <div style="max-width: 640px; margin: 0 auto;">

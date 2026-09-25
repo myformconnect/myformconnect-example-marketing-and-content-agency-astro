@@ -4,9 +4,10 @@ import { formEndpoints } from "../config/forms";
 export interface Props {
   id?: string;
   class?: string;
+  isCompact?: boolean;
 }
 
-const { id = "careers-talent-form", class: className = "" } = Astro.props;
+const { id = "careers-application-form", class: className = "", isCompact = false } = Astro.props;
 ---
 
 <div class={`careers-form-wrapper ${className}`}>
@@ -18,96 +19,136 @@ const { id = "careers-talent-form", class: className = "" } = Astro.props;
     method="POST"
     enctype="multipart/form-data"
     data-form-handler
+    novalidate
   >
-    <div class="form-group">
-      <label for={`${id}-name`} class="form-label">
-        Full Name <span class="req" aria-hidden="true">*</span>
-      </label>
-      <input
-        type="text"
-        id={`${id}-name`}
-        name="name"
-        class="form-input"
-        placeholder="Oliver Vance"
-        required
-        autocomplete="name"
-      />
+    {/* Candidate's name and contact email */}
+    <div class={isCompact ? "form-group" : "grid-2"}>
+      <div class="form-group">
+        <label for={`${id}-name`} class="form-label">
+          Full Name <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id={`${id}-name`}
+          name="name"
+          class="form-input"
+          placeholder="Jane Doe"
+          required
+          autocomplete="name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-email`} class="form-label">
+          Email Address <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id={`${id}-email`}
+          name="email"
+          class="form-input"
+          placeholder="jane@example.com"
+          required
+          autocomplete="email"
+        />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for={`${id}-email`} class="form-label">
-        Email Address <span class="req" aria-hidden="true">*</span>
-      </label>
-      <input
-        type="email"
-        id={`${id}-email`}
-        name="email"
-        class="form-input"
-        placeholder="oliver@example.com"
-        required
-        autocomplete="email"
-      />
+    {/* Role preference and years of experience */}
+    <div class={isCompact ? "form-group" : "grid-2"}>
+      <div class="form-group">
+        <label for={`${id}-position`} class="form-label">
+          Choose Marketing Position <span class="req" aria-hidden="true">*</span>
+        </label>
+        <select id={`${id}-position`} name="position" class="form-select" required>
+          <option value="" disabled selected>Select a marketing role</option>
+          <option value="Brand & Growth Marketing Strategist">Brand &amp; Growth Marketing Strategist</option>
+          <option value="Senior Content & Editorial Strategist">Senior Content &amp; Editorial Strategist</option>
+          <option value="Technical SEO & Organic Acquisition Lead">Technical SEO &amp; Organic Acquisition Lead</option>
+          <option value="Performance Marketing & Paid Acquisition Manager">Performance Marketing &amp; Paid Acquisition Manager</option>
+          <option value="Creative Marketing Copywriter">Creative Marketing Copywriter &amp; Storyteller</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-experience`} class="form-label">
+          Years of Experience
+        </label>
+        <select id={`${id}-experience`} name="experience" class="form-select">
+          <option value="" disabled selected>Select experience level</option>
+          <option value="2-4 years">2 – 4 Years</option>
+          <option value="5-8 years">5 – 8 Years</option>
+          <option value="8+ years">8+ Years (Senior / Director)</option>
+          <option value="Executive / Partner">Executive / Leadership</option>
+        </select>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for={`${id}-role`} class="form-label">
-        Role / Discipline <span class="req" aria-hidden="true">*</span>
-      </label>
-      <select id={`${id}-role`} name="role" class="form-select" required>
-        <option value="" disabled selected>Select your discipline</option>
-        <option value="Strategy">Brand & Growth Strategist</option>
-        <option value="Content & Editorial">Senior Content Editor / Copywriter</option>
-        <option value="SEO Specialist">Technical SEO Strategist</option>
-        <option value="Creative Director">Creative / Art Director</option>
-        <option value="Performance Specialist">Paid Media & Performance Lead</option>
-        <option value="Freelance Specialist">Freelance / Fractional Network</option>
-      </select>
+    {/* Portfolio link and CV file upload */}
+    <div class={isCompact ? "form-group" : "grid-2"}>
+      <div class="form-group">
+        <label for={`${id}-portfolio`} class="form-label">
+          LinkedIn / Portfolio URL <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="url"
+          id={`${id}-portfolio`}
+          name="portfolio"
+          class="form-input"
+          placeholder="https://linkedin.com/in/username"
+          required
+          autocomplete="url"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for={`${id}-resume`} class="form-label">
+          Upload Resume / CV <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="file"
+          id={`${id}-resume`}
+          name="resume"
+          class="form-file-input"
+          accept=".pdf,.doc,.docx"
+          required
+        />
+        <span class="file-upload-help">Accepted formats: PDF, DOC, DOCX (Max 10MB)</span>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for={`${id}-portfolio`} class="form-label">Portfolio URL or LinkedIn</label>
-      <input
-        type="url"
-        id={`${id}-portfolio`}
-        name="portfolio"
-        class="form-input"
-        placeholder="https://linkedin.com/in/username"
-        autocomplete="url"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for={`${id}-cv`} class="form-label">CV / Resume (PDF, Max 5MB)</label>
-      <input
-        type="file"
-        id={`${id}-cv`}
-        name="cv"
-        class="form-input"
-        accept=".pdf,.doc,.docx"
-        style="padding: 0.6rem;"
-      />
-      <small class="text-muted" style="font-size: 0.75rem;">Supported if enabled on your third-party form provider.</small>
-    </div>
-
+    {/* Short cover note about their marketing background */}
     <div class="form-group">
       <label for={`${id}-message`} class="form-label">
-        Brief Intro & What Kind of Work Excites You <span class="req" aria-hidden="true">*</span>
+        Background &amp; Marketing Philosophy <span class="req" aria-hidden="true">*</span>
       </label>
       <textarea
         id={`${id}-message`}
         name="message"
         class="form-textarea"
-        rows="3"
-        placeholder="Share a short note on your background, recent projects, and how you work..."
+        rows={isCompact ? 3 : 4}
+        placeholder="Briefly tell us about your recent marketing wins, your approach to brand growth, and why WESTERVANE feels like the right home for your work..."
         required
       ></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="width: 100%; justify-content: center; padding: 1.1rem; font-size: var(--text-sm);"
+    >
       Submit application
       <svg class="btn-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
+
+    <p class="form-note">
+      Applications are handled confidentially in accordance with UK GDPR. We will never share your personal data or contact your current employer without explicit consent.
+    </p>
+
+    <p class="mfc-powered-by" style="text-align: center; margin-top: 1rem;">
+      Powered by <a href="https://myformconnect.io" target="_blank" rel="noopener noreferrer">MFC</a>
+    </p>
   </form>
 </div>

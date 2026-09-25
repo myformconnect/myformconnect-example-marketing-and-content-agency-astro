@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 export interface Props {
   slug: string;
   client: string;
@@ -22,13 +24,13 @@ const {
 
 <article class={`work-card ${className}`}>
   <a href={`/work/${slug}`} class="work-card-media" aria-label={`View case study for ${client}`}>
-    <img
+    <Image
       src={image}
       alt={`${client} — ${industry} digital marketing case study`}
       loading="lazy"
       decoding="async"
-      width="600"
-      height="375"
+      width={600}
+      height={375}
     />
   </a>
   <div class="work-card-content">

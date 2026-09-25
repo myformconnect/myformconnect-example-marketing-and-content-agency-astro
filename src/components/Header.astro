@@ -9,13 +9,13 @@ const activeNormalized = normalize(currentPath);
 
 <header class="site-header">
   <div class="container header-inner">
-    <!-- Brand Monogram & Wordmark -->
-    <a href="/" class="logo" aria-label="North & Finch Homepage">
-      <span class="logo-symbol">N</span>
-      <span>North &amp; Finch</span>
+    <!-- Brand logo -->
+    <a href="/" class="logo" aria-label="WESTERVANE Homepage">
+      <span class="logo-symbol">W</span>
+      <span>WESTERVANE</span>
     </a>
 
-    <!-- Desktop Navigation -->
+    <!-- Main desktop menu links -->
     <nav class="nav-desktop" aria-label="Main Navigation">
       {
         siteConfig.navLinks.map((item) => {
@@ -36,15 +36,15 @@ const activeNormalized = normalize(currentPath);
       }
     </nav>
 
-    <!-- Header Actions -->
+    <!-- Call to action button & mobile hamburger -->
     <div class="header-cta-group">
-      <div style="display: none; @media (min-width: 860px) { display: block; }">
+      <div class="header-cta-desktop">
         <Button href="/contact" variant="primary" size="sm" arrow>
-          Contact
+          Start a project
         </Button>
       </div>
 
-      <!-- Mobile Menu Toggle Button -->
+      <!-- Mobile hamburger button -->
       <button
         type="button"
         class="mobile-menu-btn"
@@ -61,7 +61,7 @@ const activeNormalized = normalize(currentPath);
     </div>
   </div>
 
-  <!-- Mobile Drawer -->
+  <!-- Slide-out menu for mobile screens -->
   <div
     id="mobile-navigation-drawer"
     class="mobile-nav-drawer"
@@ -70,9 +70,9 @@ const activeNormalized = normalize(currentPath);
     aria-label="Mobile Navigation"
   >
     <div class="mobile-drawer-header">
-      <a href="/" class="logo">
-        <span class="logo-symbol">N</span>
-        <span>North &amp; Finch</span>
+      <a href="/" class="logo" aria-label="WESTERVANE Homepage">
+        <span class="logo-symbol">W</span>
+        <span>WESTERVANE</span>
       </a>
       <button
         type="button"
@@ -98,8 +98,14 @@ const activeNormalized = normalize(currentPath);
           </a>
         ))
       }
-      <a href="/contact" class="mobile-nav-link" style="color: var(--color-accent);">
-        <span>Contact</span>
+      <a href="/careers" class="mobile-nav-link">
+        <span>Careers</span>
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="/contact" class="mobile-nav-link" style="color: var(--color-accent); font-weight: 500;">
+        <span>Start a project</span>
         <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

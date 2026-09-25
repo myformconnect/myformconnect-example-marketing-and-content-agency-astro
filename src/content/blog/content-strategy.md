@@ -15,7 +15,7 @@ Every Monday morning across creative agencies and corporate marketing suites, th
 
 This question is the first warning sign of a failing content strategy. When content generation is treated as an editorial treadmill driven by arbitrary publishing quotas, the result is invariably high-volume, low-impact output that burns budgets and confuses prospective buyers.
 
-At North & Finch, we approach content not as decorative filler for an empty blog feed, but as an intellectual moat. Content that drives measurable commercial growth does not compete on volume; it competes on perspective, utility, and timing.
+At WESTERVANE, we approach content not as decorative filler for an empty blog feed, but as an intellectual moat. Content that drives measurable commercial growth does not compete on volume; it competes on perspective, utility, and timing.
 
 Here is the strategic framework we deploy with high-growth European brands to transform erratic content efforts into durable acquisition engines.
 

@@ -19,19 +19,19 @@ const {
   jsonLd
 } = Astro.props;
 
-// Ensure full canonical and image URLs
+// Make sure the canonical and social preview image URLs are fully qualified
 const canonicalUrl = new URL(canonical, siteConfig.url).href;
 const imageUrl = image.startsWith("http") ? image : new URL(image, siteConfig.url).href;
 const fullTitle = title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`;
 ---
 
-<!-- Primary Meta Tags -->
+<!-- Basic page title and description for search engines -->
 <title>{fullTitle}</title>
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 
-<!-- Open Graph / Facebook -->
+<!-- Social previews for LinkedIn, Facebook, and chat apps -->
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
@@ -40,14 +40,14 @@ const fullTitle = title.includes(siteConfig.name) ? title : `${title} | ${siteCo
 <meta property="og:site_name" content={siteConfig.name} />
 <meta property="og:locale" content="en_GB" />
 
-<!-- Twitter / X -->
+<!-- Twitter / X preview card -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={fullTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={imageUrl} />
 
-<!-- Structured Data (JSON-LD) -->
+<!-- Rich snippets and structured metadata for Google -->
 {
   jsonLd && (
     <script

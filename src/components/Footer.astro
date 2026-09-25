@@ -8,11 +8,11 @@ const currentYear = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container">
     <div class="footer-top">
-      <!-- Agency Information -->
+      <!-- Brand bio & office address -->
       <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          <span class="logo-symbol">N</span>
-          <span>North &amp; Finch</span>
+        <a href="/" class="footer-logo" aria-label="WESTERVANE Homepage">
+          <span class="logo-symbol">W</span>
+          <span>WESTERVANE</span>
         </a>
         <p class="footer-desc">
           Helping ambitious brands grow through strategy, content, SEO, digital campaigns, and creative marketing.
@@ -22,7 +22,7 @@ const currentYear = new Date().getFullYear();
         </p>
       </div>
 
-      <!-- Quick Navigation -->
+      <!-- Page navigation -->
       <div>
         <h4 class="footer-heading">Navigation</h4>
         <ul class="footer-links">
@@ -36,6 +36,11 @@ const currentYear = new Date().getFullYear();
             ))
           }
           <li>
+            <a href="/careers" class="footer-link">
+              Careers
+            </a>
+          </li>
+          <li>
             <a href="/contact" class="footer-link">
               Contact
             </a>
@@ -43,7 +48,7 @@ const currentYear = new Date().getFullYear();
         </ul>
       </div>
 
-      <!-- Agency Focus / Services -->
+      <!-- Core services -->
       <div>
         <h4 class="footer-heading">Expertise</h4>
         <ul class="footer-links">
@@ -55,7 +60,7 @@ const currentYear = new Date().getFullYear();
         </ul>
       </div>
 
-      <!-- Newsletter Dispatch -->
+      <!-- Newsletter sign-up & social channels -->
       <div>
         <h4 class="footer-heading">The London Dispatch</h4>
         <p style="font-size: var(--text-xs); color: #9e9c96; margin-bottom: 1rem; line-height: 1.6;">
@@ -68,13 +73,13 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- Bottom Strip -->
+    <!-- Copyright and legal tagline -->
     <div class="footer-bottom">
-      <p>
+      <p class="footer-copyright">
         &copy; {currentYear} {siteConfig.legalName}. All rights reserved.
       </p>
-      <p class="footer-concept-note">
-        Concept project — created for demonstration. Not a commercial solicitation.
+      <p class="footer-tagline">
+        London, UK &bull; Marketing that makes brands impossible to ignore.
       </p>
     </div>
   </div>

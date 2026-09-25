@@ -28,7 +28,7 @@ With cost-per-click rates in the B2B financial software vertical soaring beyond 
 
 ## The Strategic Approach
 
-North & Finch conducted a deep forensic audit of the European corporate treasury landscape. We identified that modern finance teams do not search for generic software buzzwords; they search for technical compliance solutions, regulatory transitions (such as ISO 20022), and clear comparative frameworks.
+WESTERVANE conducted a deep forensic audit of the European corporate treasury landscape. We identified that modern finance teams do not search for generic software buzzwords; they search for technical compliance solutions, regulatory transitions (such as ISO 20022), and clear comparative frameworks.
 
 Our strategy focused on three pillars:
 

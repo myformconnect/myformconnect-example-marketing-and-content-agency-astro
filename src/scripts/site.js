@@ -1,6 +1,8 @@
 /**
- * North & Finch — Core Client-side Scripts
- * Lightweight, vanilla JavaScript with no external dependencies.
+ * WESTERVANE — Client-side scripts
+ * 
+ * Simple, vanilla JavaScript handling user interactions:
+ * navigation menus, subtle scroll reveals, modals, and form feedback.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,9 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFormFeedback();
 });
 
-/* --------------------------------------------------------------------------
-   Sticky / Compact Header
-   -------------------------------------------------------------------------- */
+// Shrinks the top navbar slightly when you scroll down to keep things tidy
 function initStickyHeader() {
   const header = document.querySelector(".site-header");
   if (!header) return;
@@ -30,9 +30,7 @@ function initStickyHeader() {
   handleScroll();
 }
 
-/* --------------------------------------------------------------------------
-   Mobile Navigation Drawer
-   -------------------------------------------------------------------------- */
+// Handles opening, closing, and keyboard navigation for the mobile menu
 function initMobileMenu() {
   const menuBtn = document.querySelector(".mobile-menu-btn");
   const drawer = document.querySelector(".mobile-nav-drawer");
@@ -43,7 +41,7 @@ function initMobileMenu() {
     drawer.classList.add("is-open");
     drawer.setAttribute("aria-hidden", "false");
     menuBtn.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden"; // Prevents background scrolling while menu is open
     if (closeBtn) closeBtn.focus();
   };
 
@@ -58,23 +56,20 @@ function initMobileMenu() {
   menuBtn.addEventListener("click", openDrawer);
   if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
 
-  // Close on Escape
+  // Close the menu if the user presses Escape
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && drawer.classList.contains("is-open")) {
       closeDrawer();
     }
   });
 
-  // Close if clicking outside drawer links
+  // Close the menu whenever a navigation link inside it is clicked
   drawer.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", closeDrawer);
   });
 }
 
-/* --------------------------------------------------------------------------
-   Subtle Scroll Reveals (IntersectionObserver)
-   Respects prefers-reduced-motion
-   -------------------------------------------------------------------------- */
+// Gently fades in sections as they scroll into view (skipped if the user prefers reduced motion)
 function initScrollAnimations() {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReduced) return;
@@ -87,7 +82,7 @@ function initScrollAnimations() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-revealed");
-          obs.unobserve(entry.target);
+          obs.unobserve(entry.target); // Once visible, no need to watch it anymore
         }
       });
     },
@@ -97,9 +92,7 @@ function initScrollAnimations() {
   reveals.forEach((el) => observer.observe(el));
 }
 
-/* --------------------------------------------------------------------------
-   Careers Modal Logic
-   -------------------------------------------------------------------------- */
+// Manages the popup application modal on the About page
 function initCareersModal() {
   const openButtons = document.querySelectorAll("[data-open-careers-modal]");
   const modal = document.getElementById("careers-modal");
@@ -113,9 +106,9 @@ function initCareersModal() {
     lastActiveElement = document.activeElement;
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden"; // Freeze background scrolling
 
-    // Set focus to the first input or close button
+    // Auto-focus the first field so the user can start typing right away
     const firstInput = modal.querySelector("input, button");
     if (firstInput) firstInput.focus();
   };
@@ -124,6 +117,7 @@ function initCareersModal() {
     modal.classList.remove("is-active");
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    // Return focus to the button that originally opened the modal
     if (lastActiveElement && typeof lastActiveElement.focus === "function") {
       lastActiveElement.focus();
     }
@@ -132,14 +126,14 @@ function initCareersModal() {
   openButtons.forEach((btn) => btn.addEventListener("click", openModal));
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
-  // Click on background overlay
+  // Close if clicking the dimmed background backdrop
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
       closeModal();
     }
   });
 
-  // ESC key
+  // Close if pressing the Escape key
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-active")) {
       closeModal();
@@ -147,28 +141,87 @@ function initCareersModal() {
   });
 }
 
-/* --------------------------------------------------------------------------
-   Frontend Form Submission Demo Feedback
-   -------------------------------------------------------------------------- */
+// Handles form submissions asynchronously (AJAX) so users stay on the page without redirect screens
 function initFormFeedback() {
   const forms = document.querySelectorAll("form[data-form-handler]");
 
   forms.forEach((form) => {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
+      // Prevent browser from navigating away to the external 3-second redirect page
+      e.preventDefault();
+
+      // Check HTML5 validation first
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const feedbackEl =
+        form.querySelector(".form-feedback") ||
+        form.parentElement?.querySelector(".form-feedback");
+
+      const submitBtn = form.querySelector('button[type="submit"]');
       const action = form.getAttribute("action") || "";
-      // If endpoint is still the placeholder, provide immediate friendly feedback
-      if (action.includes("YOUR_") || action === "#" || !action) {
-        e.preventDefault();
-        const feedbackEl = form.querySelector(".form-feedback");
+
+      // Message depending on form type
+      const isCareers = form.id && form.id.includes("career");
+      const successMsg = isCareers
+        ? "Thank you! Your application and resume have been received. Our team will review your profile shortly."
+        : "Thank you — we've received your submission and will get back to you within 24 business hours.";
+
+      const showFeedback = (message, isSuccess = true) => {
         if (feedbackEl) {
-          feedbackEl.textContent = "Thanks — we've received your submission.";
-          feedbackEl.className = "form-feedback is-visible is-success";
+          feedbackEl.textContent = message;
+          feedbackEl.className = `form-feedback is-visible ${isSuccess ? "is-success" : "is-error"}`;
+          feedbackEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          alert(message);
+        }
+      };
+
+      // If still using placeholder URL or empty, show mock success directly
+      if (!action || action.includes("YOUR_") || action === "#") {
+        showFeedback(successMsg, true);
+        form.reset();
+        return;
+      }
+
+      // Temporarily dim and disable submit button to prevent double-clicks
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.7";
+        submitBtn.style.pointerEvents = "none";
+      }
+
+      try {
+        // Send form data in the background
+        const formData = new FormData(form);
+        const response = await fetch(action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          }
+        });
+
+        if (response.ok) {
+          showFeedback(successMsg, true);
           form.reset();
         } else {
-          alert("Thanks — we've received your submission.");
-          form.reset();
+          showFeedback("Something went wrong while submitting. Please try again.", false);
+        }
+      } catch (error) {
+        showFeedback("Network error. Please check your internet connection and try again.", false);
+      } finally {
+        // Re-enable submit button
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = "";
+          submitBtn.style.pointerEvents = "";
         }
       }
     });
   });
 }
+

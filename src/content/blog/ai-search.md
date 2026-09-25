@@ -42,7 +42,7 @@ To be cited as the authoritative source in an AI-generated overview, your conten
 
 ## Three Defensible Content Pillars for the AI Era
 
-How should ambitious brands realign their editorial investments today? At North & Finch, we focus on three durable pillars:
+How should ambitious brands realign their editorial investments today? At WESTERVANE, we focus on three durable pillars:
 
 ### 1. Proprietary Quantitative Research
 Run original industry surveys, analyze anonymized platform user patterns, and publish primary benchmark data. Language models crave authoritative statistical citations. When your annual industry report is the primary source of a metric, every AI search tool will cite your domain as the foundational authority.

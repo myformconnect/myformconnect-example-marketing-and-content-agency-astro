@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CareersForm from "../components/CareersForm.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import { siteConfig } from "../config/site";
+
+const careersSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": `Careers at ${siteConfig.name}`,
+  "description": `Explore marketing career opportunities at ${siteConfig.name}. Apply for brand strategy, content marketing, SEO, and paid performance positions.`,
+  "url": `${siteConfig.url}/careers`,
+  "publisher": {
+    "@type": "Organization",
+    "name": siteConfig.name,
+    "url": siteConfig.url
+  }
+};
+---
+
+<BaseLayout
+  title={`Careers — Join Our Marketing Team | ${siteConfig.name}`}
+  description={`Explore marketing career opportunities at ${siteConfig.name}. We are looking for ambitious brand strategists, editorial writers, technical SEOs, and performance leaders in London.`}
+  jsonLd={careersSchema}
+>
+  <section class="section-pad-lg">
+    <div class="container">
+      <div class="grid-2" style="gap: clamp(3rem, 6vw, 6rem); align-items: flex-start;">
+        <!-- Left: Agency culture and benefits -->
+        <div>
+          <span class="eyebrow eyebrow-accent">Careers at WESTERVANE</span>
+          <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
+            Where exceptional marketing minds do their defining work.
+          </h1>
+
+          <p class="text-lead" style="margin-bottom: 2.5rem;">
+            We are building a London collective of brand strategists, editorial writers, and organic growth engineers who reject disposable campaigns and algorithmic mediocrity.
+          </p>
+
+          <!-- What we value and offer -->
+          <div style="display: flex; flex-direction: column; gap: 2rem; padding: 2rem 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); margin-bottom: 2.5rem;">
+            <div>
+              <h3 style="font-size: var(--text-lg); font-weight: 500; margin-bottom: 0.35rem; color: var(--color-black);">
+                High Signal, Low Bureaucracy
+              </h3>
+              <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+                You work directly with founders, CEOs, and marketing leaders. No layers of middle management or endless status meetings — just pure strategic clarity and execution.
+              </p>
+            </div>
+
+            <div>
+              <h3 style="font-size: var(--text-lg); font-weight: 500; margin-bottom: 0.35rem; color: var(--color-black);">
+                Craftsmanship Over Content Treadmills
+              </h3>
+              <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+                We refuse to generate thin filler. Every campaign, editorial breakdown, and technical SEO structure we deploy is designed to build durable competitive advantage.
+              </p>
+            </div>
+
+            <div>
+              <h3 style="font-size: var(--text-lg); font-weight: 500; margin-bottom: 0.35rem; color: var(--color-black);">
+                Flexible London &amp; Hybrid Rhythms
+              </h3>
+              <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+                Our studio is situated in Fitzrovia, London. We balance studio collaboration days with uninterrupted deep-work focus periods from home.
+              </p>
+            </div>
+
+            <div>
+              <h3 style="font-size: var(--text-lg); font-weight: 500; margin-bottom: 0.35rem; color: var(--color-black);">
+                Competitive London Compensation
+              </h3>
+              <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+                Tier-one salary benchmarks, generous performance bonuses, continuous learning allowances, and comprehensive private healthcare.
+              </p>
+            </div>
+          </div>
+
+          <!-- Direct email contact and equal opportunity statement -->
+          <div style="margin-bottom: 2rem;">
+            <span class="eyebrow" style="margin-bottom: 0.25rem;">Talent Team Inquiries</span>
+            <p style="font-size: var(--text-base); font-weight: 500;">
+              <a href={`mailto:careers@westervane.example`} style="color: var(--color-black); text-decoration: underline; text-underline-offset: 4px;">
+                careers@westervane.example
+              </a>
+            </p>
+            <p style="font-size: var(--text-xs); color: var(--color-muted); margin-top: 0.2rem;">
+              Studio: {siteConfig.location.address}
+            </p>
+          </div>
+
+          <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;">
+            <p style="font-size: var(--text-xs); color: var(--color-muted); line-height: 1.6;">
+              <strong style="color: var(--color-black);">Equal Opportunity:</strong> WESTERVANE is an equal-opportunity employer. We celebrate diversity and are committed to creating an inclusive, intellectually stimulating environment for all team members.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Career application form -->
+        <div class="surface-card" style="padding: clamp(2rem, 4vw, 3rem); box-shadow: var(--shadow-card);">
+          <div style="margin-bottom: 2rem;">
+            <span class="eyebrow eyebrow-accent">Direct Application</span>
+            <h2 style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.5rem;">
+              Apply for a Marketing Position
+            </h2>
+            <p style="font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6;">
+              Select the marketing role that aligns with your background, upload your resume / CV, and share your perspective. We review all applications and respond within 5 business days.
+            </p>
+          </div>
+
+          <CareersForm id="career-page-form" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

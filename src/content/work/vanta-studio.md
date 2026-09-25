@@ -28,7 +28,7 @@ Prospective enterprise clients struggled to grasp what Vanta did, conflating the
 
 ## The Strategic Approach
 
-North & Finch crafted a positioning framework rooted in "High-Signal Creative Engineering":
+WESTERVANE crafted a positioning framework rooted in "High-Signal Creative Engineering":
 
 1. **Deconstruct the Black Box**: Rather than showing only polished highlight reels, we created detailed technical breakdowns ("Field Notes") that walked engineering leaders and Chief Experience Officers through the computational math, shader pipelines, and spatial acoustics behind every project.
 2. **Provocative Macro Essays**: Authored quarterly long-form perspective essays challenging conventional notions of retail architecture and mixed-reality human interaction.

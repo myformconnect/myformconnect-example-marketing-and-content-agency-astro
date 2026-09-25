@@ -72,12 +72,16 @@ import { formEndpoints } from "../config/forms";
           No thanks
         </button>
       </div>
+
+      <p class="mfc-powered-by" style="text-align: center; margin-top: 0.75rem;">
+        Powered by <a href="https://myformconnect.io" target="_blank" rel="noopener noreferrer">MFC</a>
+      </p>
     </form>
   </div>
 </div>
 
 <script>
-  // Self-contained exit intent logic complying with all rules
+  // Prompts visitors with a quick newsletter invite right as they are about to leave
   (() => {
     const STORAGE_KEY = "nf_exit_intent_shown";
     const modal = document.getElementById("exit-intent-modal");
@@ -86,11 +90,11 @@ import { formEndpoints } from "../config/forms";
     const closeBtn = document.getElementById("exit-modal-close");
     const dismissBtn = document.getElementById("exit-modal-dismiss");
     const emailInput = document.getElementById("exit-intent-email");
-    let lastActiveElement = null;
+    let lastActiveElement: HTMLElement | null = null;
     let pageLoadTime = Date.now();
     let hasTriggered = false;
 
-    // Check session storage
+    // Only show this once per session so we don't pester visitors
     if (sessionStorage.getItem(STORAGE_KEY)) {
       return;
     }
@@ -100,7 +104,7 @@ import { formEndpoints } from "../config/forms";
       hasTriggered = true;
       sessionStorage.setItem(STORAGE_KEY, "true");
 
-      lastActiveElement = document.activeElement;
+      lastActiveElement = document.activeElement as HTMLElement | null;
       modal.classList.add("is-active");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -114,27 +118,27 @@ import { formEndpoints } from "../config/forms";
       modal.classList.remove("is-active");
       modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
-      if (lastActiveElement && typeof lastActiveElement.focus === "function") {
+      if (lastActiveElement) {
         lastActiveElement.focus();
       }
     };
 
-    // Close listeners
+    // Listen for close button and background backdrop clicks
     if (closeBtn) closeBtn.addEventListener("click", closeModal);
     if (dismissBtn) dismissBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => {
       if (e.target === modal) closeModal();
     });
 
-    // Keyboard ESC listener
+    // Let users exit cleanly by pressing Escape
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && modal.classList.contains("is-active")) {
         closeModal();
       }
     });
 
-    // Desktop: Exit intent trigger (mouse moves towards top of viewport after 8+ seconds)
-    const handleMouseLeave = (e) => {
+    // On desktop: trigger when the cursor moves towards the browser tab bar (after 8+ seconds)
+    const handleMouseLeave = (e: MouseEvent) => {
       const elapsedSeconds = (Date.now() - pageLoadTime) / 1000;
       if (elapsedSeconds >= 8 && e.clientY <= 15) {
         document.removeEventListener("mouseleave", handleMouseLeave);
@@ -144,7 +148,7 @@ import { formEndpoints } from "../config/forms";
 
     document.addEventListener("mouseleave", handleMouseLeave);
 
-    // Mobile fallback: Non-intrusive timer after 45s of active presence if screen < 768px
+    // On mobile: since there's no cursor, show it politely after 45 seconds of reading
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const elapsed = (Date.now() - pageLoadTime) / 1000;

@@ -1,8 +1,8 @@
 {
-  "name": "north-and-finch",
+  "name": "westervane",
   "version": "1.0.0",
   "type": "module",
-  "description": "Production-quality demo website for North & Finch, a fictional London-based digital marketing and content agency built with Astro.",
+  "description": "Production-quality website for WESTERVANE, a London-based digital marketing and content agency built with Astro.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

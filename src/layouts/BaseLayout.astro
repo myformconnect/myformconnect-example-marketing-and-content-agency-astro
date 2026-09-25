@@ -27,7 +27,7 @@ const {
   jsonLd
 } = Astro.props;
 
-// Default Organization schema for the agency
+// Tells search engines who we are (business name, office address, and social links)
 const defaultOrgSchema = {
   "@context": "https://schema.org",
   "@type": "MarketingAgency",
@@ -77,7 +77,7 @@ const combinedJsonLd = jsonLd
     />
   </head>
   <body>
-    <!-- Skip to main content for accessibility -->
+    <!-- Lets screen readers and keyboard users jump straight to the content -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <Header />
@@ -90,7 +90,7 @@ const combinedJsonLd = jsonLd
 
     <ExitIntentPopup />
 
-    <!-- Core Client Interactions -->
+    <!-- Handles menu toggles, modals, and subtle animations -->
     <script src="../scripts/site.js"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ServiceCard from "../components/ServiceCard.astro";
@@ -11,13 +12,17 @@ import { images } from "../data/images";
 import { siteConfig } from "../config/site";
 import { getCollection } from "astro:content";
 
-// Fetch collections
+// Load case studies and blog articles from markdown files
 const allWork = await getCollection("work");
 const allBlog = await getCollection("blog");
 
-// Sort blog by date descending and get latest 3
+// Pick the 3 newest articles to feature on the homepage
 const latestBlog = allBlog
-  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+  .sort(
+    (a, b) =>
+      new Date(b.data.publishDate).getTime() -
+      new Date(a.data.publishDate).getTime(),
+  )
   .slice(0, 3);
 ---
 
@@ -25,11 +30,17 @@ const latestBlog = allBlog
   title={`${siteConfig.name} — Marketing that makes brands impossible to ignore.`}
   description={siteConfig.description}
 >
-  <!-- 1. HERO SECTION -->
-  <section class="section-pad-lg" style="position: relative; overflow: hidden; padding-bottom: clamp(3rem, 6vw, 6rem);">
+  <!-- Hero: main value proposition, intro copy, and call to action -->
+  <section
+    class="section-pad-lg"
+    style="position: relative; overflow: hidden; padding-bottom: clamp(3rem, 6vw, 6rem);"
+  >
     <div class="container">
-      <div class="grid-2" style="align-items: center; gap: clamp(2.5rem, 5vw, 5rem);">
-        <!-- Hero Text -->
+      <div
+        class="grid-2"
+        style="align-items: center; gap: clamp(2.5rem, 5vw, 5rem);"
+      >
+        <!-- Left: headlines and action buttons -->
         <div>
           <div style="margin-bottom: 1.5rem;">
             <span class="london-badge">
@@ -38,12 +49,16 @@ const latestBlog = allBlog
             </span>
           </div>
 
-          <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 1.5rem; text-wrap: balance;">
+          <h1
+            style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 1.5rem; text-wrap: balance;"
+          >
             Marketing that makes brands impossible to ignore.
           </h1>
 
           <p class="text-lead" style="margin-bottom: 2.5rem; max-width: 48ch;">
-            North &amp; Finch is a London-based digital marketing agency helping ambitious brands grow through strategy, content, SEO and creative digital campaigns.
+            WESTERVANE is a London-based digital marketing agency helping
+            ambitious brands grow through strategy, content, SEO and creative
+            digital campaigns.
           </p>
 
           <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -56,18 +71,23 @@ const latestBlog = allBlog
           </div>
         </div>
 
-        <!-- Hero Visual (London architecture / agency editorial) -->
+        <!-- Right: featured London architecture photo -->
         <Reveal delay={150}>
-          <div style="position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-card); aspect-ratio: 4 / 3;">
-            <img
+          <div
+            style="position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-card); aspect-ratio: 4 / 3;"
+          >
+            <Image
               src={images.hero}
-              alt="North & Finch London agency view and modern architectural landmark"
-              width="800"
-              height="600"
+              alt="WESTERVANE London agency view and modern architectural landmark"
+              width={800}
+              height={600}
+              loading="eager"
               fetchpriority="high"
               style="width: 100%; height: 100%; object-fit: cover;"
             />
-            <div style="position: absolute; bottom: 1rem; left: 1rem; background-color: rgba(17, 17, 17, 0.85); backdrop-filter: blur(8px); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: var(--text-xs); color: #f5f3ee; font-family: var(--font-serif); font-style: italic;">
+            <div
+              style="position: absolute; bottom: 1rem; left: 1rem; background-color: rgba(17, 17, 17, 0.85); backdrop-filter: blur(8px); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: var(--text-xs); color: #f5f3ee; font-family: var(--font-serif); font-style: italic;"
+            >
               London, W1T
             </div>
           </div>
@@ -76,24 +96,36 @@ const latestBlog = allBlog
     </div>
   </section>
 
-  <!-- 2. TRUSTED / INTRODUCTION STRIP -->
-  <section class="border-top-subtle border-bottom-subtle" style="background-color: var(--color-surface); padding: 2.25rem 0;">
+  <!-- Core disciplines highlight strip -->
+  <section
+    class="border-top-subtle border-bottom-subtle"
+    style="background-color: var(--color-surface); padding: 2.25rem 0;"
+  >
     <div class="container">
-      <div style="display: flex; flex-direction: column; md:flex-row; justify-content: space-between; align-items: flex-start; gap: 1.5rem;">
+      <div
+        style="display: flex; flex-direction: column; md:flex-row; justify-content: space-between; align-items: flex-start; gap: 1.5rem;"
+      >
         <div>
-          <span class="eyebrow eyebrow-accent" style="margin-bottom: 0.25rem;">Core Disciplines</span>
-          <p style="font-size: var(--text-xl); font-weight: 500; letter-spacing: -0.02em; color: var(--color-black);">
+          <span class="eyebrow eyebrow-accent" style="margin-bottom: 0.25rem;"
+            >Core Disciplines</span
+          >
+          <p
+            style="font-size: var(--text-xl); font-weight: 500; letter-spacing: -0.02em; color: var(--color-black);"
+          >
             Strategy &bull; Content &bull; SEO &bull; Digital
           </p>
         </div>
-        <p style="font-size: var(--text-base); color: var(--color-muted); max-width: 52ch; line-height: 1.6;">
-          We combine sharp strategy with useful content and thoughtful digital experiences to build enduring organic advantage.
+        <p
+          style="font-size: var(--text-base); color: var(--color-muted); max-width: 52ch; line-height: 1.6;"
+        >
+          We combine sharp strategy with useful content and thoughtful digital
+          experiences to build enduring organic advantage.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- 3. WHAT WE DO (5 SERVICES) -->
+  <!-- Services: 5 key agency capabilities -->
   <section class="section-pad">
     <div class="container">
       <SectionHeading
@@ -137,10 +169,16 @@ const latestBlog = allBlog
     </div>
   </section>
 
-  <!-- 4. FEATURED WORK (3 PROJECTS) -->
-  <section class="section-pad" style="background-color: var(--color-surface-subtle);">
+  <!-- Selected client case studies -->
+  <section
+    class="section-pad"
+    style="background-color: var(--color-surface-subtle);"
+  >
     <div class="container">
-      <div class="flex-between" style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);">
+      <div
+        class="flex-between"
+        style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);"
+      >
         <div>
           <span class="eyebrow eyebrow-accent">Selected Case Studies</span>
           <h2 class="section-title">Measurable impact in practice.</h2>
@@ -167,20 +205,27 @@ const latestBlog = allBlog
     </div>
   </section>
 
-  <!-- 5. ABOUT / APPROACH SECTION WITH STATS -->
+  <!-- Agency philosophy & key performance metrics -->
   <section class="section-pad">
     <div class="container">
-      <div class="grid-2" style="align-items: center; gap: clamp(3rem, 6vw, 6rem);">
+      <div
+        class="grid-2"
+        style="align-items: center; gap: clamp(3rem, 6vw, 6rem);"
+      >
         <div>
           <span class="eyebrow eyebrow-accent">Our Philosophy</span>
           <h2 class="section-title" style="margin-bottom: 1.5rem;">
             Good marketing starts with a better question.
           </h2>
           <p class="text-lead" style="margin-bottom: 1.5rem;">
-            Most agencies rush to produce campaigns before understanding why customers hesitate. We slow down just enough to interrogate the real friction points.
+            Most agencies rush to produce campaigns before understanding why
+            customers hesitate. We slow down just enough to interrogate the real
+            friction points.
           </p>
           <p style="margin-bottom: 2rem;">
-            By pairing rigorous strategic inquiry with London's finest editorial craft, North &amp; Finch builds marketing assets that continue generating inbound commercial opportunities months after deployment.
+            By pairing rigorous strategic inquiry with London's finest editorial
+            craft, WESTERVANE builds marketing assets that continue generating
+            inbound commercial opportunities months after deployment.
           </p>
 
           <Button href="/about" variant="primary" arrow>
@@ -188,55 +233,73 @@ const latestBlog = allBlog
           </Button>
         </div>
 
-        <!-- Fictional Demo Statistics Strip -->
+        <!-- Highlight metrics card -->
         <div class="surface-card" style="padding: clamp(2rem, 4vw, 3rem);">
-          <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
-            <span style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted);">
+          <div
+            style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);"
+          >
+            <span
+              style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted);"
+            >
               Indicative Demo Metrics
             </span>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 2rem;">
             <div>
-              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+              <div
+                style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;"
+              >
                 12+
               </div>
-              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+              <div
+                style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;"
+              >
                 International markets reached across client campaigns
               </div>
             </div>
 
             <div>
-              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+              <div
+                style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;"
+              >
                 38%
               </div>
-              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+              <div
+                style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;"
+              >
                 Average sustained organic traffic growth within 90 days
               </div>
             </div>
 
             <div>
-              <div style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;">
+              <div
+                style="font-size: var(--text-4xl); font-weight: 500; color: var(--color-black); line-height: 1;"
+              >
                 4.8x
               </div>
-              <div style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;">
+              <div
+                style="font-size: var(--text-sm); color: var(--color-muted); margin-top: 0.35rem;"
+              >
                 Average campaign return on ad spend across digital initiatives
               </div>
             </div>
           </div>
-
-          <p style="font-size: 0.75rem; color: var(--color-muted-light); margin-top: 1.5rem;">
-            *Figures are illustrative demo performance benchmarks.
-          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. LATEST INSIGHTS -->
-  <section class="section-pad border-top-subtle" style="background-color: var(--color-surface);">
+  <!-- Latest editorial articles -->
+  <section
+    class="section-pad border-top-subtle"
+    style="background-color: var(--color-surface);"
+  >
     <div class="container">
-      <div class="flex-between" style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);">
+      <div
+        class="flex-between"
+        style="flex-wrap: wrap; gap: 1.5rem; margin-bottom: var(--space-3xl);"
+      >
         <div>
           <span class="eyebrow eyebrow-accent">Editorial Insights</span>
           <h2 class="section-title">Field notes &amp; perspectives.</h2>
@@ -264,16 +327,24 @@ const latestBlog = allBlog
     </div>
   </section>
 
-  <!-- 7. NEWSLETTER CTA -->
-  <section class="section-pad" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <!-- Fortnightly newsletter invite -->
+  <section
+    class="section-pad"
+    style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container text-center">
       <div style="max-width: 620px; margin: 0 auto;">
         <span class="eyebrow eyebrow-accent">The London Dispatch</span>
-        <h2 style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 0.75rem;">
+        <h2
+          style="font-size: var(--text-3xl); font-weight: 500; margin-bottom: 0.75rem;"
+        >
           Ideas worth keeping.
         </h2>
-        <p style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem;">
-          Get practical marketing, SEO and content insights delivered to your inbox once a fortnight.
+        <p
+          style="font-size: var(--text-base); color: var(--color-muted); margin-bottom: 2rem;"
+        >
+          Get practical marketing, SEO and content insights delivered to your
+          inbox once a fortnight.
         </p>
 
         <div style="display: flex; justify-content: center;">
@@ -283,16 +354,19 @@ const latestBlog = allBlog
     </div>
   </section>
 
-  <!-- 8. FINAL CTA -->
+  <!-- Bottom call to action encouraging visitors to get in touch -->
   <section class="section-pad-lg text-center">
     <div class="container">
       <div style="max-width: 680px; margin: 0 auto;">
         <span class="eyebrow">Ready for clarity?</span>
-        <h2 style="font-size: var(--text-4xl); font-weight: 500; letter-spacing: -0.03em; margin-bottom: 1.25rem;">
+        <h2
+          style="font-size: var(--text-4xl); font-weight: 500; letter-spacing: -0.03em; margin-bottom: 1.25rem;"
+        >
           Have a brand worth growing?
         </h2>
         <p class="text-lead" style="margin-bottom: 2.5rem;">
-          Whether you need a full strategic overhaul or focused execution across SEO and content, we'd love to hear what you are building.
+          Whether you need a full strategic overhaul or focused execution across
+          SEO and content, we'd love to hear what you are building.
         </p>
         <Button href="/contact" variant="primary" size="lg" arrow>
           Start a conversation

@@ -28,7 +28,7 @@ Their digital touchpoints felt fragmented, their online store experienced high c
 
 ## The Strategic Approach
 
-North & Finch was commissioned to execute a holistic brand elevation and omni-channel digital campaign:
+WESTERVANE was commissioned to execute a holistic brand elevation and omni-channel digital campaign:
 
 1. **Refined Editorial Narrative**: Shifting the positioning from "rustic traditional homeware" to "timeless architectural living," appealing to aesthetic purists in London, Paris, and New York.
 2. **Immersive Digital Vignettes**: Moving away from static, cut-out e-commerce product photos toward richly textured interior portraits, capturing natural light, raw linen, and patinated brass in lived-in spaces.

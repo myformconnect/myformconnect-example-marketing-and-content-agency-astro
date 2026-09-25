@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeading from "../components/SectionHeading.astro";
 import Button from "../components/Button.astro";
 import CareersForm from "../components/CareersForm.astro";
@@ -57,24 +58,24 @@ const team = [
 
 <BaseLayout
   title={`About Us — Strategy & Storytelling | ${siteConfig.name}`}
-  description="Learn about North & Finch, a London marketing agency pairing sharp strategy, editorial craft, and organic growth discipline."
+  description="Learn about WESTERVANE, a London marketing agency pairing sharp strategy, editorial craft, and organic growth discipline."
 >
-  <!-- About Hero -->
+  <!-- Hero banner: introducing the agency -->
   <section class="section-pad-lg">
     <div class="container">
       <div style="max-width: 860px;">
-        <span class="eyebrow eyebrow-accent">About North &amp; Finch</span>
+        <span class="eyebrow eyebrow-accent">About WESTERVANE</span>
         <h1 style="font-size: var(--text-hero); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 2rem;">
           Strategy, creativity and a little London stubbornness.
         </h1>
         <p class="text-lead" style="font-size: var(--text-xl); line-height: 1.5; color: #222222;">
-          North &amp; Finch was established in Fitzrovia with a singular conviction: ambitious brands deserve marketing that treats audiences as intelligent adults.
+          WESTERVANE was established in Fitzrovia with a singular conviction: ambitious brands deserve marketing that treats audiences as intelligent adults.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Editorial Story Section -->
+  <!-- Agency origin story & philosophy -->
   <section class="section-pad-sm border-top-subtle" style="background-color: var(--color-surface);">
     <div class="container">
       <div class="grid-2" style="gap: clamp(2.5rem, 5vw, 5rem); align-items: flex-start;">
@@ -84,12 +85,12 @@ const team = [
             Moving beyond disposable clicks toward enduring authority.
           </h2>
           <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); aspect-ratio: 4 / 3; margin-top: 2rem;">
-            <img
+            <Image
               src={images.agencyOffice}
-              alt="North & Finch agency studio in Fitzrovia, London"
+              alt="WESTERVANE agency studio in Fitzrovia, London"
               loading="lazy"
-              width="640"
-              height="480"
+              width={640}
+              height={480}
               style="width: 100%; height: 100%; object-fit: cover;"
             />
           </div>
@@ -100,7 +101,7 @@ const team = [
             The modern digital landscape is saturated with noise. Companies spend fortunes renting fleeting attention on algorithmic ad feeds, only to find their brand equity disappears the moment the budget is paused.
           </p>
           <p>
-            We founded North &amp; Finch to offer a more durable alternative. We combine the rigorous inquiry of a strategic consultancy with the narrative flair of an independent publisher and the technical precision of an organic search engineering firm.
+            We founded WESTERVANE to offer a more durable alternative. We combine the rigorous inquiry of a strategic consultancy with the narrative flair of an independent publisher and the technical precision of an organic search engineering firm.
           </p>
           <p>
             Based in central London, we work with a deliberately select portfolio of high-growth technology companies, modern luxury brands, and specialized service firms across the UK, Europe, and North America.
@@ -116,7 +117,7 @@ const team = [
     </div>
   </section>
 
-  <!-- Our Approach (01 - 04) -->
+  <!-- Our 4-step framework -->
   <section class="section-pad">
     <div class="container">
       <SectionHeading
@@ -147,7 +148,7 @@ const team = [
     </div>
   </section>
 
-  <!-- Team Section -->
+  <!-- Leadership team profiles -->
   <section class="section-pad border-top-subtle" style="background-color: var(--color-surface);">
     <div class="container">
       <SectionHeading
@@ -161,12 +162,12 @@ const team = [
           team.map((member) => (
             <div class="surface-card" style="padding: 1.5rem;">
               <div style="aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.25rem; border: 1px solid var(--color-border);">
-                <img
+                <Image
                   src={member.image}
                   alt={member.name}
                   loading="lazy"
-                  width="400"
-                  height="400"
+                  width={400}
+                  height={400}
                   style="width: 100%; height: 100%; object-fit: cover;"
                 />
               </div>
@@ -186,7 +187,7 @@ const team = [
     </div>
   </section>
 
-  <!-- Careers / Talent Section -->
+  <!-- Join the team call-to-action -->
   <section class="section-pad" style="background-color: var(--color-surface-subtle); border-top: 1px solid var(--color-border);">
     <div class="container text-center">
       <div style="max-width: 620px; margin: 0 auto;">
@@ -198,21 +199,26 @@ const team = [
           We are always interested in meeting exceptional writers, SEO engineers, art directors, and strategists. Whether you seek a permanent role or freelance collaboration, we'd like to hear from you.
         </p>
 
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-open-careers-modal
-        >
-          Join our talent network
-          <svg class="btn-icon-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/careers" class="btn btn-primary">
+            Explore marketing careers
+            <svg class="btn-icon-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <button
+            type="button"
+            class="btn btn-outline"
+            data-open-careers-modal
+          >
+            Quick application
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Careers Modal Dialog -->
+  <!-- Quick application popup modal -->
   <div
     id="careers-modal"
     class="modal-overlay"
@@ -235,14 +241,14 @@ const team = [
       <div style="margin-bottom: 1.5rem;">
         <span class="eyebrow eyebrow-accent">Talent Network</span>
         <h2 id="careers-modal-title" style="font-size: var(--text-2xl); font-weight: 500; margin-bottom: 0.5rem;">
-          Work with North &amp; Finch
+          Work with WESTERVANE
         </h2>
         <p style="font-size: var(--text-sm); color: var(--color-muted);">
           Share your portfolio, background, and the types of creative or strategic challenges you thrive on.
         </p>
       </div>
 
-      <CareersForm id="modal-careers-form" />
+      <CareersForm id="modal-careers-form" isCompact />
     </div>
   </div>
 </BaseLayout>
